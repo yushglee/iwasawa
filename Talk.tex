@@ -1,0 +1,594 @@
+\documentclass[11pt]{amsart}
+\usepackage{mathtools}
+\usepackage{amssymb,amsthm,amsmath,bbm,euscript,mathrsfs}
+\usepackage{tikz-cd}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{enumitem}
+\usepackage{color}
+\usepackage[backref = page]{hyperref}
+\hypersetup{
+linkcolor=blue,
+linktocpage,
+}
+\setcounter{tocdepth}{1}
+
+\setlength{\textwidth}{\paperwidth}
+\addtolength{\textwidth}{-2in}
+\calclayout
+
+
+
+\title{Ribet's converse theorem}
+\author{Yu-Sheng Lee}
+%newcommand
+\newcommand{\Q}{\mathbf{Q}}  %rational
+\newcommand{\Z}{\mathbf{Z}}  %integer
+\newcommand{\R}{\mathbb{R}}  %real
+\newcommand{\C}{\mathbb{C}}  %complex
+\newcommand{\A}{\mathbb{A}} %adele
+\newcommand{\bs}{\mathcal{S}} %Schwartz-Bruhat
+\newcommand{\ir}{\mathcal{O}} %interger ring
+\newcommand{\p}{\mathfrak{p}} %prime
+\newcommand{\tr}{{\rm tr}} %trace
+\newcommand{\I}{\mathbb{I}} %identity function 
+\newcommand{\G}{\text{Gal}}
+
+\newcommand{\sel}{\operatorname{Sel}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\fitt}{\operatorname{Fitt}}
+\newcommand{\Rep}{\operatorname{Rep}}
+\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\gr}{\operatorname{gr}}
+\newcommand{\gl}{\operatorname{GL}}
+\newcommand{\coker}{\operatorname{coker}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\frob}{\operatorname{Frob}}
+\newcommand{\totfrac}{\operatorname{Frac}}
+\newcommand{\trace}{\operatorname{Tr}}
+\newcommand{\fil}{\operatorname{Fil}}
+
+% p-adic Hodge
+\newcommand{\hot}{\operatorname{HT}}
+\newcommand{\dht}{D_{\operatorname{HT}}}
+\newcommand{\bht}{B_{\operatorname{HT}}}
+\newcommand{\dr}{\operatorname{dR}}
+\newcommand{\ddr}{D_{\operatorname{dR}}}
+\newcommand{\bdr}{B_{\operatorname{dR}}}
+\newcommand{\st}{\operatorname{st}}
+\newcommand{\dst}{D_{\operatorname{st}}}
+\newcommand{\dpst}{D_{\operatorname{pst}}}
+\newcommand{\bst}{B_{\operatorname{st}}}
+\newcommand{\cris}{\operatorname{cris}}
+\newcommand{\dcris}{D_{\operatorname{cris}}}
+\newcommand{\bcris}{B_{\operatorname{cris}}}
+\newcommand{\un}{\operatorname{un}}
+\newcommand{\et}{\operatorname{\acute{e}t}}
+\newcommand{\E}{\mathscr{E}} 
+\newcommand{\etmod}{\operatorname{\Phi M}^{\et}} 
+\newcommand{\filmod}{\operatorname{MF}} 
+
+
+
+\newcommand*{\transp}[2][-3mu]{\ensuremath{\mskip1mu\prescript{\smash{\mathrm t\mkern#1}}{}{\mathstrut#2}}}
+\newcommand{\mat}[1]{ \begin{pmatrix}
+#1
+\end{pmatrix} }
+\newcommand{\teim}[1]{ \langle
+#1
+\rangle }
+\newcommand{\ddb}[1]{ \llbracket
+#1
+\rrbracket }
+
+\makeatletter
+\newsavebox{\@brx}
+\newcommand{\llangle}[1][]{\savebox{\@brx}{\(\m@th{#1\langle}\)}%
+  \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\newcommand{\rrangle}[1][]{\savebox{\@brx}{\(\m@th{#1\rangle}\)}%
+  \mathclose{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\newcommand{\llbracket}[1][]{\savebox{\@brx}{\(\m@th{#1[}\)}%
+  \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\newcommand{\rrbracket}[1][]{\savebox{\@brx}{\(\m@th{#1]}\)}%
+  \mathclose{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\makeatother
+
+%unindexed theorems
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{definition}
+\newtheorem{theorem}[definition]{Theorem}
+\theoremstyle{definition}
+\newtheorem{proposition}[definition]{Proposition}
+\theoremstyle{definition}
+\newtheorem{remark}[definition]{Remark}
+\theoremstyle{definition}
+\newtheorem{example}[definition]{Example}
+\theoremstyle{definition}
+\newtheorem{lemma}[definition]{Lemma}
+
+\begin{document}
+
+\maketitle
+
+
+In this note we discuss 
+the relation between Eisenstein congruences and Ribet's converse 
+to the Herbrand-Ribet theorem.
+Following \cite{Sk}, we treat the theorem
+as a specialized case of the Iwasawa main conjecture
+and emphasize the role of the congruence modules.
+Throughout, let $p$ be an odd prime,
+$\chi\colon G_\Q\to\Z_p^\times$ be the $p$-th cyclotomic character, 
+and 
+\begin{equation*}
+    \omega=\overline{\chi}\colon G_\Q
+    \to Gal(\Q(\mu_p)/\Q)\to
+    \mathbb{F}_p^\times \cong \mu_{p-1}
+\end{equation*}
+be the Teichmuller character.
+
+
+\section{The Herbrand-Ribet theorem}
+
+Let $A=Cl(\Q(\mu_p))\otimes\Z_p$ be the $p$-primary part of the field $\Q(\mu_p)$. The action 
+of $Gal(\Q(\mu_p)/\Q)$ on $A$ gives a decomposition
+\begin{equation*}
+    A=\bigoplus_{n=0}^{p-2}A_n
+\end{equation*}
+where the Galois group acts on $A_n$ by $\omega^n$.
+Recall that $p$ is said to be irregular if $A\neq 0$,
+and we are interested in the finer problem of whether $A_n\neq 0$.
+
+When $n$ is even,
+the Kummer-Vandiver conjectuere states that $A_n$ should be trivial.
+Using the Stickelberger elements, Herbrand has shown that $A_0=A_1=0$, and
+if $A_{p-k}\neq 0$ for some even $k<p-1$, then $p$ divides the $k$-th Bernoulli number $B_k$
+defined by
+\begin{equation*}
+    \frac{t}{e^t-1}=\sum_{n=0}^\infty B_n\frac{t^n}{n!}.
+\end{equation*}
+We refer to \cite{Wa} for a detailed discussion of these facts.
+On the other hand, Ribet has shown that the converse of Herbrand's result is also true.
+\begin{theorem}\cite{Ri}
+    Let $2\leq k< p-1$ be an even number. If $p\mid B_k$, then
+    $A_{p-k}\neq 0$.
+\end{theorem}
+\begin{remark}
+   By the von Staudt theorem we have $\text{val}_p(B_{p-1})=-1$. This is compatible with the fact that $A_1=0$.
+\end{remark}
+
+We first reinterpret $A_n$ as Selmer groups.
+Let $G=G_\Q, H=G_{\Q(\mu_p)}, \Delta=Gal(\Q(\mu_p)/\Q)=G/H$ and $W=\mathbb{F}(\omega^n)$,
+define
+\begin{equation*}
+    H^1_f(\Q,W)\coloneqq
+    \ker\bigg(
+    H^1(\Q,W)\to\prod_{\ell}
+    H^1(I_\ell,W)
+    \bigg).
+\end{equation*}
+Since $p\nmid \#\Delta$, we can stare at the inflation-restriction exact sequence
+\begin{equation*}
+    \begin{tikzcd}
+        H^1(\Delta,W) \arrow[r]\arrow[d,equal]&
+        H^1(G,W) \arrow[r,"\sim"]\arrow[d]&
+        H^1(H,W)^{\Delta} \arrow[r]\arrow[d]&
+        H^2(\Delta,W)\arrow[d,equal]\\
+        0&H^1(I_\ell,W) \arrow[r,hookrightarrow]
+        &\prod_{v\mid \ell}H^1(I_v,W)& 0
+    \end{tikzcd}
+\end{equation*}
+and the isomorphism $H^1(H,W)^{\Delta}\cong \Hom_{\Delta}(H, W)$,
+then realize that
+\begin{equation*}
+    H^1_f(\Q,W)\cong H^1_f(\Q(\mu_p),W)^\Delta
+    =\{ \phi\in \Hom_\Delta(H, W)\mid
+    f(I_v)=0 \text{ for all } v\}= \Hom(A_n,\mathbb{F}).
+\end{equation*}
+To show that $A_n\neq 0$, it suffices to show that 
+$H^1_f(\Q,\mathbb{F}(\omega^n))$
+is nontrivial, or equivalently, that there exists a non-split extension
+of Galois representations
+\begin{equation*}
+    0 \to \mathbb{F}(\omega^n)\to \overline{\rho} \to \mathbb{F}\to 0
+\end{equation*}
+that splits everywhere locally. We will find such an extension by studying the congruences between Galois representations of modular forms. 
+
+Consider the classical level $1$ Eisenstein series $E_k$ of weight $k$
+\begin{equation*}
+    E_k=\frac{\zeta(1-k)}{2}+\sum_{n=1}^\infty \sigma_{k-1}(n)q^n,\quad k\geq 4.
+\end{equation*}
+The constant terms $\frac{\zeta(1-k)}{2}=\frac{-B_k}{2k}$
+have the following congruence relations.
+\begin{enumerate}
+    \item The values $B_k/k$ lie in $\Z_p$ if and only if $(p-1)\nmid k$.
+    \item If $k\equiv k'\not\equiv 0\mod (p-1)$, then
+    \begin{equation*}
+        \frac{B_k}{k}\equiv \frac{B_{k'}}{k'}\mod p.
+    \end{equation*}
+\end{enumerate}
+It follows that if $k<p-1$ is even and $p\mid B_k$,
+the Eisenstein series $E_{k+m(p-1)}$
+have $p$-integral Fourier coefficients and the constant term is 
+divisible by $p$. We may thus assume $k>4$ and $E_k$
+is such an Eisenstein series.
+Then there exists $k=4a+6b$
+such that
+\begin{equation*}
+    F \coloneqq 
+    E_k-\frac{\zeta(1-k)}{2}(240E_4)^a(-504E_6)^b
+\end{equation*}
+is a nonzero level $1$ cusp form of weight $k$.
+The Fourier coefficients of $F$ are congruent to those of the Eisenstein series
+\begin{equation*}
+    a_\ell(F) \equiv a_\ell(E_k)=1+\ell^{k-1}\mod p.
+\end{equation*}
+\begin{example}
+    Consider $B_{12}=-691/2730$, then
+    $E_{12}-(240E_4)^3$ is a nonzero multiple of the
+    Ramanujan $\Delta$ function.
+\end{example}
+
+Let $S=S_k(1,\Z_p)$ be the space of cusp forms
+and $\mathbb{T}=\mathbb{T}_k(1,\Z_p)\subset \End_{\Z_p}(S)$
+be the $\Z_p$-subalgebra generated by the Hecke operators. We have the following facts.
+\begin{enumerate}
+    \item The Hecke algebra $\mathbb{T}$ is reduced and finite flat over $\Z_p$.
+    \item There exists a perfect bilinear pairing
+    \begin{equation*}
+        \mathbb{T}\times S\to \Z_p,
+        \quad (T, f)\mapsto a_1(Tf)
+    \end{equation*}
+    which identifies $S\cong \Hom(\mathbb{T},\Z_p)$.
+    A cusp form $f$ is a Hecke eigenform if and only if it corresponds to a
+    homomorphism of $\Z_p$-algebras.
+    \item The $\Q_p$-algebra $\mathbb{T}\otimes \Q_p$ is semi-simple and 
+    has a decomposition $\mathbb{T}\otimes \Q_p=\prod_\lambda K_\lambda$
+    into finite extensions over $\Q_p$
+    There is a correspondence between the fields (or the minimal primes of $\mathbb{T}$)
+    and the conjugacy classes of Hecke eigenforms.
+\end{enumerate}
+
+Since $E_k$ is a Hecke eigenform,
+the $\Z_p$-module homomorphism associated to $F$
+\begin{equation*}
+    \eta \colon \mathbb{T}\to \mathbb{F}_p,\quad
+    T_\ell\mapsto a_\ell(F)\equiv 1+\ell^{k-1} \mod p
+\end{equation*}
+becomes a ring homomorphism after modulo by $p$.
+
+\begin{lemma}[Deligne-Serre lifting]
+    There exists an eigenform $f\in S_k(1,\ir)$,
+    where $\ir$ is the ring of integer of a finite extension over $\Q_p$
+    with a uniformizer $\varpi$, such that
+    \begin{equation*}
+        a_\ell(f) \equiv 1+\ell^{k-1} \mod (\varpi).
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    We apply the going-down to the maximal ideal 
+    $\mathfrak{m}\coloneqq\ker(\eta)$ in $\mathbb{T}$.
+    Since $\mathfrak{m}\cap \Z_p=(p)$,
+    there exists a minimal prime ideal
+    $\mathfrak{p}\subset \mathbb{T}$ such that $\mathfrak{p}\cap \Z_p=(0)$.
+    The quotient $\mathbb{T}/\mathfrak{p}$ is isomorphic to a ring $\ir$
+    as in the statement. Let $f$ be the eigenform corresponding
+    to the ring homomorphism $\mathbb{T}\to \mathbb{T}/\mathfrak{p}\cong \ir$.
+    The congruence property follows from that $(\varpi)$ pullbacks to $\mathfrak{m}$.
+\end{proof}
+
+The irreducible Galois representation associated to $f$
+\begin{equation*}
+    \rho_f\colon G_\Q\to \gl_2(K),\quad K=\totfrac \ir
+\end{equation*}
+is unramified away from $p$ and satisfies
+$\tr\rho_f(\frob_\ell)=a_\ell(f)$ for all $\ell\neq p$.
+It follows from
+\begin{equation}\label{cong}
+    \tr\rho_f(\frob_\ell)=a_\ell(f)\equiv
+    1+\ell^{k-1}=1+\chi^{k-1}(\frob_\ell)\mod (\varpi)
+\end{equation}
+and the Chebotarev's density that
+$\tr\rho_f(\sigma)\equiv 1+\chi^{k-1}(\sigma)\mod (\varpi)$ for all $\sigma\in G_\Q$.
+Therefore, the semi-simplified reduction $\overline{\rho}^{ss}$
+is isomorphic to $\omega^{k-1}\oplus 1$. To find a lattice whose reduction
+gives the desired non-split extension (up to a twist),
+we need to employ Urban's lattice construction.
+\begin{proposition}[\cite{Ur}]
+   Let $\rho\colon G_\Q\to \gl_2(K)$
+   be an irreducible Galois representation such that
+   \begin{equation*}
+       \tr\rho\equiv \chi_1+\chi_2 \mod \mathfrak{a}= (\varpi)^n.
+   \end{equation*}
+   for characters
+    $\chi_i\colon G_\Q\to \ir^\times$ that are distinct modulo $(\varpi)$.
+   Then there exists a stable lattice $\mathcal{L}\subset K^2$ whose reduction
+   is a non-split extension between
+   $\chi_1$ and $\chi_2$ modulo $\mathfrak{a}$.
+\end{proposition}
+\begin{proof}
+    Observe that
+    $\det\rho(\sigma)=\tr\rho(\sigma^2)-\tr\rho(\sigma)^2/2$
+    and therefore
+    \begin{equation*}
+        \det(X\mathbf{I}-\rho(\sigma))\equiv (X-\chi_1(\sigma))(X-\chi_2(\sigma))\mod \mathfrak{a}.
+    \end{equation*}
+    Since $\chi_i$ are distinct modulo $(\varpi)$,
+    we can pick $\sigma_0\in G_\Q$ whose characteristic polynomial 
+    has distinct roots modulo $(\varpi)$.
+    By the Hensel lemma, the the roots lift to distinct eigenvalues in $\ir$.
+    We pick a basis $\{v_1,v_2\}$ of eigenvectors and write
+    \begin{equation*}
+        \rho(\sigma_0)=\mat{\alpha_1&\\&\alpha_2}, \quad
+        \alpha_i\in \ir,\quad
+        \alpha_i\equiv \chi_i(\sigma_0)\mod \mathfrak{a}.
+    \end{equation*}
+    Since $\tr\rho(\sigma\sigma_0^n)\equiv \chi_1(\sigma\sigma_0^n)+\chi_2(\sigma\sigma_0^n)\mod \mathfrak{a}$, the relation
+    \begin{equation*}
+        a_\sigma\alpha_1^n+d_\sigma\alpha_2^n\equiv
+        \chi_1(\sigma)\alpha_1^n+\chi_2(\sigma)\alpha_2^n
+        \mod \mathfrak{a},\quad
+        \rho(\sigma)=\mat{a_\sigma &b_\sigma\\c_\sigma&d_\sigma}
+    \end{equation*}
+    holds for all $n$ and $\sigma\in G_\Q$. 
+    And since $\{(1,1), (\alpha_1,\alpha_2)\}$ generate $\ir^2$, we actually have
+    \begin{equation*}
+        a_\sigma\equiv \chi_1(\sigma),\quad
+        d_\sigma\equiv \chi_2(\sigma) \mod \mathfrak{a}
+    \end{equation*}
+    for all $\sigma\in G_\Q$ and thus
+    \begin{enumerate}
+        \item $a_\sigma, d_\sigma \in \ir$ for all $\sigma\in G_\Q$,
+        \item $b_\sigma c_\tau=a_{\sigma\tau}-a_\sigma a_\tau\in \ir$
+        for all $\sigma, \tau\in G_\Q$ and $b_\sigma c_\tau\equiv 0\mod \mathfrak{a}$.
+    \end{enumerate}
+    Let $C=\{c_\sigma\mid \sigma\in \ir[G_\Q]\}$
+    be the $\ir$-submodule in $K$
+    generated by all $c_\sigma\in G_\Q$. 
+    Then $C$ is nonzero because  $\rho$ is irreducible and
+    it is actually a fractional ideal since the Galois group is compact.
+    We put $\mathcal{L}_1=\ir v_1, \mathcal{L}_2=C v_2$ and $\mathcal{L}=\mathcal{L}_1\oplus\mathcal{L}_2$,
+    which is the stable lattice generated by $v_1$ over $\ir[G_\Q]$.
+    By above, the reduction of $\mathcal{L}$ modulo $\mathfrak{a}$ is an extension
+        \begin{equation}\label{ext}
+            0\to \ir/\mathfrak{a}(\chi_2)\cong \overline{\mathcal{L}}_2\to\overline{\mathcal{L}}
+            \to \overline{\mathcal{L}}_1\cong \ir/\mathfrak{a}(\chi_1)\to 0
+        \end{equation}
+    as $C/\mathfrak{a}C\cong \ir/\mathfrak{a}$.
+    We claim that $\overline{\mathcal{L}}$ has no quotient on which
+    $G_\Q$ acts by $\chi_2$. Otherwise
+    \begin{equation*}
+        (\rho(\sigma_0)-\chi_2(\sigma_0)) v_1\equiv (\alpha_1-\alpha_2)v_1\mod \mathfrak{a},
+    \end{equation*}
+    and therefore $v_1$ lies in the kernel, which contradicts that $v_1$ generates $\mathcal{L}$.
+    In particular, the extension gives a nontrivial class in
+    $\Ext^1_{G_\Q}(\overline{\chi}_1,\overline{\chi}_2)=H^1(\Q, \ir/\mathfrak{a}(\chi_2\chi_1^{-1}))$.
+\end{proof}
+\begin{remark}
+    The proposition was proved for the more general setting
+    when $\ir$ is local Henselian and $\overline{\rho}^{ss}$
+    is the sum of mutually non-isomorphic irreducible representations.
+    We refer to \cite[chapter 1]{bell}
+    for a formulation of these results in terms of 
+    pseudo-representations and generalized matrix algebras.
+\end{remark}
+
+Apply the construction to $\mathfrak{a}=(\varpi)$ and $(\chi_1,\chi_2)=(1,\chi^{k-1})$,
+we can obtain a nontrivial class in $H^1(\Q,\mathbb{F}(\omega^{k-1}))$ or $H^1(\Q,\mathbb{F}(\omega^{1-k}))$.
+In either case, the restriction to $I_\ell$ for $\ell\neq p$ is
+trivial since $\rho_f$ is unramified away from $p$ and
+the image of $\mathcal{L}_1$ in $\overline{\mathcal{L}}$
+is a section of the extension in (\ref{ext}).
+To finish the proof, we need to use the fact that $a_p(f)\equiv 1+p^{k-1}\equiv 1$
+is a unit and thus $f$ is ordinary.
+\begin{theorem}
+    We say an eigenform $f$ is $p$-ordinary if $a_p(f)$ is a $p$-unit.
+    When this is the case,
+    \begin{equation*}
+        \rho_f\vert_{I_p}\sim \mat{\chi^{k-1}& *\\&1}.
+    \end{equation*}
+\end{theorem}
+Now, if the reduction of the lattice $\mathcal{L}$ is
+a non-split extension $0\to \mathbb{F} \to\overline{\mathcal{L}}
+\to \mathbb{F}(\omega^{k-1})\to 0$
+and $\mathcal{F}\subset K^2$ is the subspace where $I_p$ acts by $\chi^{k-1}$,
+the reduction of $\mathcal{L}\cap F$ is a section of the extension
+when restricted to $I_p$. Therefore we have show that
+\begin{equation*}
+    0\neq [\overline{\mathcal{L}}]\in H^1_f(\Q, \mathbb{F}(\omega^{1-k}))
+    \cong \Hom(A_{p-k}, \mathbb{F}).
+\end{equation*}
+This completes the proof of Ribet's converse theorem.
+
+\section{Congruence modules}
+What happens when $\zeta(1-k)/2$ is divisible by higher powers of $p$?
+It is natural to expect that we will be able to construct non-split extensions in larger coefficients.
+Indeed, if the congruence relation (\ref{cong}) holds for $\mathfrak{a}=(\varpi^n)$,
+the same arguments will give a nontrivial class in
+\begin{equation*}
+    H^1_f(\Q, \ir/\mathfrak{a}(\chi^{1-k}))\coloneqq
+    \ker\bigg(
+    H^1(\Q,\ir/\mathfrak{a}(\chi^{1-k}))\to\prod_{\ell}
+    H^1(I_\ell,\ir/\mathfrak{a}(\chi^{1-k}))
+    \bigg).
+\end{equation*}
+However, the Deligne-Serre lifting lemma only works for prime ideals,
+and we have no control of the sizes of congruences for each minimal prime below $\mathfrak{m}=\ker(\eta)$.
+We therefore need to consider all these primes, or equivalently
+all the Hecke eigenforms congruent to $E_k$, at the same time.
+
+Suppose $p^r\parallel\zeta(1-k)/2$. The ring homomorphism
+\begin{equation*}
+    \mathbb{T}\to \Z_p/(p^r),\quad T_\ell\mapsto 1+\ell^{k-1}\mod (p^r)
+\end{equation*}
+factors through the ideal $I\coloneqq(T_\ell-1-\ell^{k-1})\subset \mathbb{T}$. 
+Let $J$ be the kernel of the surjective homomorphism
+$\Z_p\to\mathbb{T}/I$, the following commutative diagram
+shows that $J\subset (p^r)$.
+\begin{equation*}
+    \begin{tikzcd}
+        & \mathbb{T} \arrow[r,"\eta"]\arrow[d]/I & \mathbb{T}/\mathfrak{m}\arrow[d,"\sim",sloped]\\
+         \Z_p/J \arrow[r] \arrow[ur,"\sim",sloped] &\Z_p/(p^r) \arrow[r]& \mathbb{F}_p\\
+    \end{tikzcd}
+\end{equation*}
+Let $\mathbb{T}_\mathfrak{m}$ be the localization, then the components of $K\coloneqq \mathbb{T}_\mathfrak{m}\otimes\Q_p=\prod_\lambda K_\lambda$
+corresponds to conjugacy classes of eigenforms that are congruent to $E_k$.
+If $\rho_\lambda$ is the p-adic Galois representation associated to each eigenform, we write
+\begin{equation*}
+    \rho_\mathfrak{m}=\prod \rho_\lambda \colon G_\Q\to \gl_2(K)=\prod \gl_2(K_\lambda),
+\end{equation*}
+which is irreducible at each component and 
+$\tr\rho_\mathfrak{m}(\frob_\ell)=T_\ell\in \mathbb{T}_\mathfrak{m}\subset K$ if $\ell\neq p$. Since by tautology
+\begin{equation*}
+    \tr\rho_\mathfrak{m}(\frob_\ell)=T_\ell \equiv \ell^{k-1}+1=\chi^{k-1}(\frob_\ell)+1\mod I,
+\end{equation*}
+we have $\tr\rho_\mathfrak{m}(\sigma)\equiv \chi^{k-1}(\sigma)+1\mod I$
+for $\sigma\in G_\Q$.
+Apply the same argument as in the proof of the lattice construction, we can
+find a basis $\{v_1,v_2\}$ of eigenvectors for some $\rho_\mathfrak{m}(\sigma_0)$ such that 
+\begin{equation*}
+    \rho_\mathfrak{m}(\sigma)=\mat{a_\sigma & b_\sigma\\c_\sigma & d_\sigma}\quad
+    \text{satisfies}
+\end{equation*}
+\begin{enumerate}
+    \item $a_\sigma\in \mathbb{T}_\mathfrak{m}$ for all $\sigma\in G_\Q$ and $a_\sigma\equiv \chi^{k-1}(\sigma)\mod I$,
+    \item $d_\sigma \in \mathbb{T}_\mathfrak{m}$ for all $\sigma\in G_\Q$ and $d_\sigma\equiv 1\mod I$,
+    \item $b_\sigma c_\tau\in \mathbb{T}_\mathfrak{m}$
+    for all $\sigma, \tau\in G_\Q$ and $b_\sigma c_\tau\equiv 0\mod I$.
+\end{enumerate}
+Let $C=\{c_\sigma\mid \sigma\in \mathbb{T}_\mathfrak{m}[G_\Q]\}$
+be the $\mathbb{T}_\mathfrak{m}$-submodule in $K$
+generated by all $c_\sigma\in G_\Q$.
+Since each $\rho_\lambda$ is an irreducible Galois representation,
+the projection of $C$ to each $K_\lambda$ is a nonzero fractional ideal.
+In particular, $C$ is a finite faithful $\mathbb{T}_\mathfrak{m}$-module.
+
+
+Put $\mathcal{L}_1=\mathbb{T}_\mathfrak{m} v_1, \mathcal{L}_2=C v_2$ and $\mathcal{L}=\mathcal{L}_1\oplus\mathcal{L}_2$.
+Again, $\mathcal{L}$ is the stable lattice generated by $v_1$ over $\mathbb{T}_\mathfrak{m}[G_\Q]$ and
+the reduction modulo $I$ is an extension
+\begin{equation*}
+    0\to C/IC\cong \overline{\mathcal{L}}_2 \to\overline{\mathcal{L}}
+    \to \overline{\mathcal{L}}_1\cong \mathbb{T}_\mathfrak{m}/I(\chi^{k-1})\to 0
+\end{equation*}
+having no quotient on which $G_\Q$ acts trivially. 
+Since $\mathbb{T}_\mathfrak{m}/I=\Z_p/J$,
+for any $\phi\in \Hom(C/IC, \Q_p/\Z_p)$
+the non-split extension
+\begin{equation*}
+    0\to \overline{\mathcal{L}}_2/\ker(\phi) \to \overline{\mathcal{L}}/\ker(\phi)\to \overline{\mathcal{L}}_1\to 0
+\end{equation*}
+gives a nontrivial class in $H_f^1(\Q, \overline{\mathcal{L}}_2/\ker(\phi)(\chi^{1-k}))\hookrightarrow 
+H_f^1(\Q, \Q_p/\Z_p(\chi^{1-k}))$.
+Thus the map 
+\begin{equation*}
+    \Hom(C/IC, \Q_p/\Z_p)\hookrightarrow H^1_f(\Q, \Q_p/\Z_p(\chi^{1-k}))
+\end{equation*}
+is injective and dually we have a
+surjective homomorphism
+$H^1_f(\Q, \Q_p/\Z_p(\chi^{1-k}))^\vee\twoheadrightarrow C/IC$
+between finitely-generated $Z_p$-modules.
+
+\begin{definition}
+    Let $M$ be an $R$-module of finite presentation
+    \begin{equation*}
+        R^a\xrightarrow{h} R^b \to M\to 0.
+    \end{equation*}
+    We define the ($0$-th) Fitting ideal $\fitt_R(M)$ to be 
+    the $R$-ideal generated by the determinants of all $(b,b)$-minors in $h$
+    if $a\geq b$, and $\fitt_R(M)=R$ if $a<b$. The definition
+    is independent of the choice of the presentation.
+\end{definition}
+We also recall the following facts from \cite[Appendix]{Mazur1984}.
+\begin{enumerate}
+    \item $\fitt(M)\subset \fitt(M')$ if $M\twoheadrightarrow M$.
+    \item $\fitt(M)\subset \text{Ann}(M)$, therefore the Fitting ideal of a faithful $R$-module is trivial.
+    \item $\fitt_{R/I}(M/IM)=\fitt_R(M)\mod I$.
+\end{enumerate}
+We can deduce from which that $\fitt_{\Z_p} H^1_f(\Q,\Q_p/\Z_p(\chi^{1-k})^\vee \subset \fitt_{\Z_p}(C/IC)$
+and
+\begin{equation*}
+    \fitt_{\Z_p}(C/IC) \mod J=\fitt_{\Z_p/J}(C/IC)=\fitt_{\mathbb{T}_\mathfrak{m}/I}(C/IC)=\fitt_{\mathbb{T}_\mathfrak{m}}(C)\mod I.
+\end{equation*}
+But $\fitt_{\mathbb{T}_\mathfrak{m}}(C)=0$ since $C$ is a faithful $\mathbb{T}_\mathfrak{m}$-module, thus
+\begin{equation*}
+    \fitt_{\Z_p}(C/IC)\subset J\subset (p^r)=(\zeta(1-k)).
+\end{equation*}
+And as $\#C/IC=\# \Z_p/\fitt_{\Z_p}(C/IC)\geq \#\Z_p/(\zeta(1-k)$,
+we obtain the following proposition that partially answers
+the question we posed in the beginning of the section.
+\begin{proposition}
+   Let $k\geq 4$ be an even number and $(p-1)\nmid k$, we have
+   \begin{equation*}
+       \#H^1_f(\Q,\Q_p/\Z_p(\chi^{1-k}))\geq \#\Z_p/(\zeta(1-k)).
+   \end{equation*}
+\end{proposition}
+
+
+At last, we recall the definition of congruence modules and 
+reinterpret the above chain of inclusions.
+Let $M'=M'_k(1,\Z_p)$ be the space of modular forms
+with $a_n(f)\in \Z_p$ for all $n\geq 1$ and 
+$\mathbb{T}'$ be the Hecke algebra acting on $M'$.
+Note that we do not require the constant term to be $p$-integral.
+Since $S\subset M'$, the Hecke algebra $\mathbb{T}$ is a quotient of $\mathbb{T}'$.
+In fact, we have
+\begin{equation*}
+    \mathbb{T}'\otimes \Q_p\cong \Q_p\times (\mathbb{T}\otimes \Q_p)
+\end{equation*}
+where the $\Q_p$-component is given by the Eisenstein series $E_k$.
+Let $e\in \mathbb{T}'\otimes \Q_p$ be the idempotent corresponding to $(\mathbb{T}\otimes \Q_p)$, then $e\mathbb{T}'=\mathbb{T}$.
+\begin{definition}
+    Following \cite{Ti},
+    we define the congruence modules
+    \begin{equation*}
+    C_0(\mathbb{T}')=e\mathbb{T}'/e\mathbb{T}'\cap \mathbb{T}',\quad
+    C_0(M')=eM'/eM'\cap M'.
+    \end{equation*}
+\end{definition}
+Since $e\mathbb{T}'\cap \mathbb{T}'$ is the kernel of the homomorphism to the Eisenstein component
+\begin{equation*}
+    \mathbb{T}'\to \Q_p,\quad T_\ell\mapsto 1+\ell^{k-1},
+\end{equation*}
+its image in $e\mathbb{T}'=\mathbb{T}$ is 
+precisely $I=(T_\ell-1-\ell^{k-1})$ and we have recovered $C_0(\mathbb{T}')\cong \mathbb{T}/I$.
+On the other hand, we have $eM'\cap M'=S$ and $C_0(M')$ measures the congruences between cusp forms and the Eisenstein series $E_k$.
+\begin{lemma}
+    The congruence module $C_0(M')$ has an element of order $p^n$
+    if and only if
+    there exists $G\in M'$ such that
+    $F\coloneqq E_k-p^nG\in S$.
+\end{lemma}
+\begin{proof}
+    Since $C_0(M')\cong M'/(\Z_pE_k\oplus S)$,
+    if $G\in M'$ projects to an element of order $p^n$ in $C_0(M')$,
+    then $p^nG=aE_k+F$ for some $a\in \Z_p^\times$ and $F\in S\setminus pS$.
+    The converse is then also clear.
+\end{proof}
+In particular, recall that we have constructed
+$F=E_k-\frac{\zeta(1-k)}{2}(240E_4)^a(-504E_6)^b\in S$.
+By the lemma there exists a submodule
+isomorphic to $\Z_p/(\zeta(1-k))$ in $C_0(M')$. We now observe that
+\begin{align*}
+    \text{Ann}_{\Z_p}C_0(M')\subset(\zeta(1-k))&,\quad \text{since }\Z_p/(\zeta(1-k))\hookrightarrow C_0(M'),\\
+    J=\text{Ann}_{\Z_p}C_0(\mathbb{T}')\subset\text{Ann}_{\Z_p}C_0(M')&,\quad
+    \text{since }C_0(\mathbb{T}')\otimes M'\twoheadrightarrow C_0(M'),
+\end{align*}
+and we have already proved $\fitt_{\Z_p} H^1_f(\Q, \Q_p/\Z_p(\chi^{1-k}))^\vee\subset J$.
+In conclusion, we have
+\begin{equation*}
+    (\zeta(1-k))\supset \text{Ann}_{\Z_p}C_0(M')\supset \text{Ann}_{\Z_p}C_0(\mathbb{T}')\supset
+    \fitt_{\Z_p} H^1_f(\Q, \Q_p/\Z_p(\chi^{1-k}))^\vee.
+\end{equation*}
+This will turn out to be a recurring theme.
+
+
+
+
+
+
+\bibliographystyle{alpha}
+\bibliography{biblio.bib}
+\end{document}

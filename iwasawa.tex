@@ -27,6 +27,8 @@
 %[label=(\roman*)]
 %[label={(\bfseries R\arabic*)}]
 
+\DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
+\DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}
 
 \setlength{\textwidth}{\paperwidth}
 \addtolength{\textwidth}{-2in}
@@ -216,6 +218,7 @@
 
 
 \DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\res}{res}
 \DeclareMathOperator{\rec}{rec}
 
 
@@ -254,6 +257,81 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 
+\section{Skinner's notes}
+
+For a number field $F$ and a place $v$ of $F$,
+let $\rec_{F_v}: F_v^{\times} \rightarrow G_{F_v}^{ab}$ 
+be the reciprocity map of local class field theory, 
+normalized so that uniformizers map to lifts of the arithmetic Frobenius. 
+Similarly, we let $\rec_F: F^{\times} \backslash \mathbb{A}_F^{\times} \rightarrow G_F^{ab}$ 
+be the reciprocity map of global class field theory, normalized so that 
+$\rec_F\vert_{F_v}=\rec_{F_v}$.
+Let $\epsilon:G_\Q\to \Zp^\times$ be the $p$-adic cyclotomic character.
+
+\subsection{Selmer group}
+Let $E$ be an elliptic curve over $F$,
+Kummer map
+\[
+    E(F)/mE(F)\xhookrightarrow{\kappa}
+    H^1(G_{F,\Sigma},E[m])\coloneqq
+    \ker\left\{H^1(F, E[m]) 
+    \xrightarrow{\res} \prod_{v \notin \Sigma} H^1\left(I_v, E[m]\right)\right\},
+\]
+$\Sigma$ such that $v\notin \Sigma$ implies
+that $v$ is a finite place not dividing $m$ and $E$ has good reduction at $v$.
+Then use $L=F(E[m])\subset F_\Sigma$
+\[
+    0 \rightarrow H^1\left(\Gal(L / F), E[m]^{G_L}\right) \rightarrow H^1\left(G_{F, \Sigma}, E[m]\right) \xrightarrow{\res} \Hom\left(\Gal(\left(F_{\Sigma} / L\right), E[m]\right).
+\]
+to show weak Mordell-Weil.
+
+For each place $v$ of $F$ the inclusion of $F$ in the completion $F_v$ induces a commutative diagram
+where $\kappa_v$ is just the Kummer map for $E$ over $F_v$. The Selmer group $\Sel_m(E / F)$ for the multiplication by $m$ on $E$ is
+\[
+\Sel_m(E / F)=\left\{c \in H^1(F, E[m]): \res_v(c) \in \operatorname{im}\left(\kappa_v\right) \forall v\right\} .
+\]
+
+This clearly contains the image of $\kappa$. Furthermore, by the argument explained above, if $v$ does not divide $m$ and $E$ has good reduction at $v$ then $\operatorname{im}\left(\kappa_v\right) \subset \ker\left\{H^1\left(F_v, E[m]\right) \xrightarrow{\res} H^1\left(I_v, E[m]\right)\right\}$. In particular, $\Sel_m(E / F) \subseteq H^1\left(G_{F, \Sigma}, E[m]\right)$
+
+\[
+\operatorname{Sel}_m(E / F)=\operatorname{ker}\left\{H^1(F, E[m]) \xrightarrow{r e s} \prod_v H^1\left(F_v, E\right)\right\} .
+\]
+
+\[
+0 \rightarrow E(F) / m E(F) \xrightarrow{\kappa} H^1(F, E[m]) \rightarrow H^1(F, E)[m] \rightarrow 0
+\]
+and
+\[
+0 \rightarrow E\left(F_v\right) / m E\left(F_v\right) \xrightarrow{\kappa_u} H^1\left(F_v, E[m]\right) \rightarrow H^1\left(F_v, E\right)[m] \rightarrow 0
+\]
+
+And we see that the image of $\kappa$ is just $\operatorname{ker}\left\{\operatorname{Sel}_m(E / F) \rightarrow H^1(F, E)\right\}$. In particular, there is a fundamental exact sequence
+\[
+0 \rightarrow E(F) / m E(F) \xrightarrow{\kappa} \operatorname{Sel}_m(E / F) \rightarrow \amalg(E / F)[m] \rightarrow 0,
+\]
+where
+\[
+\amalg(E / F)=\operatorname{ker}\left\{H^1(F, E) \xrightarrow{r e s} \prod_v H^1\left(F_v, E\right)\right\}
+\]
+
+If $m \mid m^{\prime}$ then the inclusion $E[m] \subset E\left[m^{\prime}\right]$ induces a surjection $H^1(F, E[m]) \rightarrow H^1\left(F, E\left[m^{\prime}\right]\right)[m]$ and so a surjection $\operatorname{Sel}_m(E / F) \rightarrow \operatorname{Sel}_{m^{\prime}}(E / F)[m]$. The kernel is just $E\left[\frac{m^{\prime}}{m}\right](F) / m E\left[m^{\prime}\right](F)$. If $F^{\prime} / F$ is a finite extension, then the restriction map $H^1(F, E[m]) \rightarrow H^1\left(F^{\prime}, E[m]\right)$ induces a homomorphism $\operatorname{Sel}_m(E / F) \rightarrow \operatorname{Sel}_m\left(E / F^{\prime}\right)$. Furthermore, if $F^{\prime} / F$ is a Galois extension, then the action of $\operatorname{Gal}\left(F^{\prime} / F\right)$ on $H^1\left(F^{\prime}, E[m]\right)$ defines an action on $\operatorname{Sel}_m\left(E / F^{\prime}\right)$, and the maximal $\operatorname{Gal}\left(F^{\prime} / F\right)$-fixed subgroup contains the image of $\operatorname{Sel}_m(E / F)$.
+
+2.1.4. The $p^{\infty}$-Selmer group. The $p^{\infty}$-Selmer group of $E$ is obtained by taking the direct limits over $n$ of the $p$-power Selmer groups $\operatorname{Sel}_{p^n}(E / F)$ :
+\[
+\operatorname{Sel}_{p^{\infty}}(E / F)=\underset{n}{\lim } \operatorname{Sel}_{p^n}(E / F) .
+\]
+
+Since $\lim _{\longrightarrow} H^1\left(F, E\left[p^n\right]\right)=H^1\left(F, E\left[p^{\infty}\right]\right)$ the $p^{\infty}$-Selmer group can also be directly defined as
+\[
+\operatorname{Sel}_{p^{\infty}}(E / F)=\operatorname{ker}\left\{H^1\left(F, E\left[p^{\infty}\right]\right) \xrightarrow{r e s} \prod_v H^1\left(F_v, E\right)\right\} .
+\]
+
+The natural surjection $H^1\left(F, E\left[p^n\right]\right) \rightarrow H^1\left(F, E\left[p^{\infty}\right]\right)\left[p^n\right]$ induces a surjection $\operatorname{Sel}_{p^n}(E / F) \rightarrow$ $\operatorname{Sel}_{p^{\infty}}(E / F)\left[p^n\right]$ with kernel $E\left[p^{\infty}\right](F) / p^n E\left[p^{\infty}\right](F)$.
+
+Taking the direct limit over the fundamental exact sequences for the multiplication by $p^n$ maps yields the fundamental exact sequence for the $p^{\infty}$-Selmer groups:
+\[
+0 \rightarrow E(F) \otimes \mathbb{Q}_p / \mathbb{Z}_p \rightarrow \operatorname{Sel}_{p^{\infty}}(E / F) \rightarrow \amalg(E / F)\left[p^{\infty}\right] \rightarrow 0 .
+\]
 
 \section{Elliptic curves with CM}
 
@@ -270,7 +348,7 @@
 
 
 
-\section{$L$-invariant}
+\section{L-invariant}
 Let $E/\Q$ be an elliptic curve, assume that
 \begin{enumerate}[label=(\alph*)]
 	\item $E$ has stable reduction modulo $p$
