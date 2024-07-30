@@ -1,0 +1,461 @@
+\documentclass[leqno]{amsart}
+\usepackage{amssymb}
+\usepackage{amsmath} 
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{color}
+\usepackage{mathtools,caption,bbm,euscript}
+\usepackage[table,dvipsnames]{xcolor}
+\usepackage{tikz-cd,tikz}
+\usetikzlibrary{patterns}
+\usepackage[utf8]{inputenc}
+\usepackage[OT2,T1]{fontenc}
+\hypersetup{
+ colorlinks=true,
+ linkcolor=DarkOrchid,
+ filecolor=blue,
+ citecolor=olive,
+ urlcolor=orange,
+ pdftitle={Notes on Iwasawa theory},
+ %pdfpagemode=FullScreen,
+ }
+\usepackage{booktabs}
+
+%[label=(\alph*)]
+%[label=(\Alph*)]
+%[label=(\roman*)]
+%[label={(\bfseries R\arabic*)}]
+
+
+\setlength{\textwidth}{\paperwidth}
+\addtolength{\textwidth}{-2in}
+\calclayout
+
+
+\newcommand{\smat}[1]{\left( \begin{smallmatrix} #1 \end{smallmatrix} \right)}
+\newcommand{\mat}[1]{\left( \begin{smallmatrix} #1 \end{smallmatrix} \right)}
+\newcommand{\dBr}[1]{\llbracket{#1}\rrbracket}
+\newcommand{\leg}[2]{\left(\frac{#1}{#2}\right)}
+
+% double bracket
+\makeatletter
+\newsavebox{\@brx}
+\newcommand{\llangle}[1][]{\savebox{\@brx}{\(\m@th{#1\langle}\)}%
+  \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\newcommand{\rrangle}[1][]{\savebox{\@brx}{\(\m@th{#1\rangle}\)}%
+  \mathclose{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+  \newcommand{\llbracket}[1][]{\savebox{\@brx}{\(\m@th{#1[}\)}%
+  \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\newcommand{\rrbracket}[1][]{\savebox{\@brx}{\(\m@th{#1]}\)}%
+  \mathclose{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\makeatother
+
+%%% Unitary group specific
+\newcommand{\V}{\mathbf V} 
+\newcommand{\W}{\mathbf W} 
+\newcommand{\G}{\mathbf G} %GU(2,2)
+\newcommand{\X}{\mathbf H} %Hermitian symmetric domain
+\newcommand{\KK}{\mathbf K} %compact open subgroup
+\newcommand{\xx}{\mathbf x}
+\newcommand{\yy}{\mathbf y}
+\newcommand{\nn}{\mathbf n} %unipotent
+
+\newcommand{\qdr}[1]{\underline{ #1 }}
+\newcommand{\cA}{\mathcal A} %complex abelian varieties
+\newcommand{\cB}{\mathcal B} %complex abelian varieties
+\newcommand{\bB}{\mathbf B}
+
+\newcommand{\mm}{\mathbf{m}}
+
+
+\newcommand{\balpha}{\boldsymbol{\alpha}} %diagonal torus elements
+\newcommand{\bbeta}{\boldsymbol{\beta}} %diagonal torus elements
+\newcommand{\bnu}{\boldsymbol{\nu}} %character on diagonal torus
+\newcommand{\bmu}{\boldsymbol{\mu}} %character on diagonal torus
+
+%%% modular form specific
+
+\newcommand{\wt}[1]{\underline{ #1 }}
+\newcommand{\bwt}[1]{\underline{\boldsymbol { #1 }}}
+\newcommand{\M}{\mathbf{M}}
+\newcommand{\Mk}{\mathbf{M}_{\wt{k}}}
+\newcommand{\pM}{\widehat{\mathbf{M}}}
+\newcommand{\pMk}{\widehat{\mathbf{M}}_{\wt{k}}}
+\newcommand{\AM}{\mathcal{A}}
+\newcommand{\bun}{\mathcal{E}}
+\newcommand{\ii}{\mathbf i}
+\newcommand{\ff}{\mathbf f}
+\newcommand{\her}{\EuScript{H} }
+
+
+
+\newcommand{\phk}{\mathcal{H}_{\wt{k}}} %Hecke algebra
+
+
+\newcommand{\vk}{v_{-\wt{k}}} % lowest weight vector
+\newcommand{\lk}{\mathnormal{l}_{\wt{k}}} % projection to lowest weight
+\newcommand{\blk}{\mathnormal{l}_{\bwt{k}}} % projection to lowest weight
+\newcommand{\Lk}{L_{\wt{k}}} 
+\newcommand{\pf}{\hat{f}} % algebraic modular form
+\newcommand{\pfk}{\hat{f}_{\wt{k}}}
+\newcommand{\euF}{\EuScript{F}} % Hida family
+\newcommand{\B}{\mathbf{B}} % pairing of algebraic modular form
+
+
+\newcommand{\ww}{\boldsymbol{\omega}}
+\DeclareMathOperator{\an}{an}
+\DeclareMathOperator{\ordp}{{ord}_p}
+\DeclareMathOperator{\cts}{cts}
+\DeclareMathOperator{\Frob}{Frob}
+
+
+%%% Linear algebraic groups
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\Mp}{Mp}
+\DeclareMathOperator{\GSp}{GSp}
+\DeclareMathOperator{\UU}{U}
+\DeclareMathOperator{\GUU}{GU}
+\DeclareMathOperator{\gl}{\mathfrak{gl}}
+\DeclareMathOperator{\mtr}{tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\vol}{vol}
+
+\DeclareMathOperator{\val}{val}
+\DeclareMathOperator{\odp}{ord}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\Pol}{Pol_p}
+
+%%% Adelic rings
+\newcommand{\Q}{{\mathbf{Q}}}
+\newcommand{\Z}{{\mathbf{Z}}}
+\newcommand{\Qp}{\mathbf{Q}_p}
+\newcommand{\Zp}{\mathbf{Z}_p}
+\newcommand{\Ql}{\mathbf{Q}_\ell}
+\newcommand{\Zl}{\mathbf{Z}_\ell}
+\newcommand{\R}{\mathbf R}
+\newcommand{\C}{\mathbf C}
+\newcommand{\A}{\mathbf A}
+\newcommand{\hZ}{{\hat{\mathbf{Z}}}}
+\newcommand{\dd}{\mathfrak{d}} %different
+\newcommand{\DD}{\mathcal{D}}  %discriminant
+
+\newcommand{\arch}{\mathbf{a}}
+\newcommand{\fin}{\mathbf{h}}
+
+\newcommand{\F}{{\mathcal{F}}} %global 
+\newcommand{\OF}{{\mathcal{O}_{\F}}}
+\newcommand{\K}{{\mathcal{K}}} %global quadratic
+\newcommand{\OK}{\mathcal{O}_{\K}}
+\newcommand{\kk}{F} %local
+\newcommand{\E}{E} %local quadratic
+
+
+\DeclareMathOperator{\Sel}{Sel}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Nr}{\mathsf{N}}
+\DeclareMathOperator{\Tr}{Tr}
+\newcommand{\qch}{\epsilon} % quadratic character of K/F
+
+
+%%% Fonts
+\newcommand{\oeu}{\EuScript{O}}
+\newcommand{\eeu}{\EuScript{E}}
+\newcommand{\feu}{\EuScript{F}}
+\newcommand{\geu}{\EuScript{G}}
+\newcommand{\keu}{\EuScript{K}}
+
+\newcommand{\oo}{\mathcal O}
+\newcommand{\bs}{\mathcal S}
+\newcommand{\id}{\mathbf{1}}
+
+\newcommand{\1}{\mathbf{1}} 
+\newcommand{\bfe}{\mathbf e}
+\newcommand{\bff}{\mathbf f}
+
+\newcommand{\bX}{\mathbb{X}}
+\newcommand{\bY}{\mathbb{Y}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bW}{\mathbb{W}}
+
+\newcommand{\fa}{\mathfrak a}
+\newcommand{\fg}{\mathfrak g}
+\newcommand{\fc}{\mathfrak c}
+\newcommand{\fs}{\mathfrak s}
+\newcommand{\fm}{\mathfrak m}
+\newcommand{\fn}{\mathfrak n}
+\newcommand{\fl}{\mathfrak l}
+\newcommand{\fp}{\mathfrak p}
+\newcommand{\bfp}{\overline{\mathfrak p}}
+\newcommand{\fq}{\mathfrak q}
+\newcommand{\bfq}{\overline{\mathfrak q}}
+
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bdelta}{\boldsymbol{\delta}}
+
+
+\newcommand{\fG}{\mathfrak{G}}
+\newcommand{\fX}{\mathfrak{X}}
+\newcommand{\euW}{\EuScript{W}}
+
+
+%%% Categorical
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Inj}{Inj}
+\DeclareMathOperator{\Isom}{Isom}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\corank}{corank}
+
+
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\rec}{rec}
+
+
+
+\newcommand{\bw}{{w^c}}
+\newcommand{\ee}{\mathbf e}
+
+
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{defn}[thm]{Definition}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem*{Remark*}{Remark}
+\newtheorem{ack}{Acknowledgement}
+
+\newcommand{\red}[1]{\textcolor{Red}{#1}}
+
+
+
+\begin{document}
+\title{Notes on Iwasawa theory}
+\author[Y-S.~Lee]{Yu-Sheng Lee}
+\address{Department of Mathematics, University  of Michigan, Ann Arbor, MI 48109, USA}
+\email{yushglee@umich.edu}
+\date{\today}
+
+\maketitle
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+
+\section{Elliptic curves with CM}
+
+\[
+\begin{tikzpicture}
+	\draw(0,3)--(0,-2) (-4,0)--(3,0);
+	\draw[dashed](-2,-2)--(3,3) (1,-2)--(-3,2);
+	\path[pattern=north east lines] 
+		(-3,0)--(-3,2)--(-1,2)--(-1,0)--cycle;
+	\path[pattern=north east lines] 
+		(0,-1)--(0,-2)--(2,-2)--(2,-1)--cycle;
+\end{tikzpicture}
+\]
+
+
+
+\section{$L$-invariant}
+Let $E/\Q$ be an elliptic curve, assume that
+\begin{enumerate}[label=(\alph*)]
+	\item $E$ has stable reduction modulo $p$
+	\item  $E$ has split multiplicative reduction at  $p$.
+\end{enumerate}
+Tate's $p$-adic uniformization thoery, $q_E\in p\Zp$
+such that  $E(\bar{\Q}_p)\cong \bar{\Q}_p^\times/q_E^{\Z}$, 
+which is defined over $\Qp$. 
+\[
+	 \mathcal{L}_p(E)\coloneqq \frac{\log_p(q_E)}{\ordp(q_E)}
+\]
+
+\begin{thm}
+	If $p\geq 5$, then
+	 \[
+		 L'_p(E,1)=\mathcal{L}_p(E)\cdot 
+		 \frac{L_\infty(E,1)}{\Omega_\infty}
+	\]
+\end{thm}
+
+Under the assumption that $E$ has split multiplicative reduction
+\[
+	L_p(E,2-s)=w_p \langle N\rangle^{s-1}L_p(E,s)
+\]
+where $w_p=-w_\infty$.
+\begin{itemize}
+	\item if $w_\infty=-1$, then trivial since
+		$L'_p(E,1)=0$ then.
+	\item if  $w_\infty=1$,  
+		then $L_p(E,s)$ has odd order at $s=1$.
+		The order is one iff
+		$L_\infty(E,1)\neq 0$ and  $\log_p(q_E)\neq 0$.
+\end{itemize}
+Conjecturally
+\[
+	ord_{s=1}(L_p(E,s))=
+	ord_{s=1}(L_\infty(E,s))=+1
+\]
+
+As an example, let $E=X_0(11)$ and  $p=11$.
+Let 
+ \[
+	 \rho_E\colon G_\Q\to \Aut(T_pE),\quad
+	 f_E=q\prod(1-q^n)^2(1-q^{11n})^2 
+	 \text{ is ordinary at }p.
+\]
+The universal ordinary Hecke algebra is 
+$\Lambda=\Zp\llbracket 1+p\Zp\rrbracket$.
+By Hida's theory, there exists a free rank two $\Lambda$-module
+$\mathbf{T}$ and 
+\[
+	\rho\colon G_\Q\to \Aut_\Lambda(\mathbf{T}),\quad
+	\mathbf{T}/P_0\mathbf{T}\cong T_pE
+\]
+where $P_0\subset\Lambda$ is the augmentation ideal.
+ \begin{enumerate}[label=(\alph*)]
+	\item for $k\in \Zp$,
+		let $\sigma_{k-2}\colon\Lambda\to\Zp$
+		extends $t\mapsto t^{k-2}$ on $1+p\Zp$.
+		Let  $P_k=\ker(\sigma_{k-2})$
+	\item $\rho_2=\rho_E$
+	\item for each integer  $k\geq 2$,
+		there is a new form  $f_k$
+		of conductor dividing  $p$
+		whose Galois representation is 
+		$\mathbf{T}_k=\mathbf{T}/P_k\mathbf{T}$
+		 \[
+			\text{conductor}=1 \Longleftrightarrow
+			k>2 \text{ and } k\equiv 2\mod p-1
+		\]
+		Otherwise, the condcutor is $p$
+		and the Nebentypus is  $\omega^{2-k}$.
+	\item 
+		\[
+			\rho\vert_{G_{\Qp}}\sim 
+			\smat
+			{\chi\varphi^{-1} & * \\
+			0 & \varphi }
+		\]
+		where $\varphi\colon G_{\Qp}\to \Lambda^\times$
+		is unramified and $\chi\colon G_{\Qp}\to \Lambda^\times$
+		is such that 
+		$\sigma_{k-2}\circ \chi=\chi_0^{k-2}\omega^{2-k}$ 
+		where $\chi_0$ is the cyclotomic character.
+\end{enumerate}
+Let $a_p=\varphi(\Frob_p)\in \Lambda^\times$
+The $p$-factor of  $L_\infty(f_k,s)$ is
+ \[
+	 [(1-\alpha_kp^{-s})(1-\beta_kp^{-s})]^{-1},\quad
+	 \alpha_k=a_p(k)\coloneqq \sigma_{k-2}(a_p),
+	 \beta_k=
+	 \begin{cases}
+		 p^{k-1}/\alpha_k, & k>2\text{ and }k\equiv 2\mod p-1,\\
+		 0, & \text{otherwise}.
+	 \end{cases}
+\]
+Then  $\alpha_k\equiv \alpha_2=1$ (interpolated by $a_p$ )
+and  $\beta_k\equiv 0\mod p$ (cannot be interpolated).
+\[
+	\mathbf{f}\colon \sum a_nq^n\in \Lambda\llbracket q\rrbracket
+	\Longrightarrow
+	\mathbf{f}_k=\sum a_n(k)q^n= f_k^*\coloneqq
+	f_k(z)-\beta_kf_k(pz)
+\]
+
+There is a two variable $p$-adic L-function $L_p(k,s), k,s\in \Zp$.
+ \begin{enumerate}[label=(\alph*)]
+	 \item $L_p(k,s)$ is analytic for  $k,s\in \Zp$
+	 \item  $L_p(2,s)=L_p(E,s)$ and 
+		 $L_p(k,s)$ is  $L_p(f_k,s)$.
+		 \[
+			 L_p(k,s)=\Omega_k\cdot L_p(f_k,s),\Omega_k\in \Qp
+			 \text{ and } \Omega_2=1
+		 \]
+	 \item  $L_p(k,k-s)=-L_p(k,s)$
+	 \item  $L_p(k,1)=(1-q_p(k)^{-1})L_p^*(k,1)$
+		 where  $L_p^*(k,1)$ is a  $p$-adic analytic function 
+		 such that 
+		 \[
+			 L^*_p(2,1)=\frac{L_\infty(E,1)}{\Omega_E}
+		 \]
+\end{enumerate}
+ For $k\geq2, 0<s_0<k, s\equiv 1\mod p-1$,
+  \[
+	  L_p(f_k,s_0)=
+	  (1-\beta_kp^{-s_0})(1-\alpha_k^{-1}p^{s_0-1})
+	  \cdot \frac{L_\infty(f_k,s_0)}{\Omega_{f_k}}=
+	  \frac{(1-\alpha_k^{-1}p^{s_0-1})}{(1-\alpha_kp^{-s_0})}
+	  \cdot \frac{L^{(p)}_\infty(f_k,s_0)}{\Omega_{f_k}}=
+ \]
+When $s_0=1$, the factor 
+$1-a_p(k)^{-1}$ can be interpolated and is a non-unit,
+so $L_p(k,1)$ is divisible by which, the quotient 
+$L_p^*(k,1)$ is 
+\[
+	  L_p(f_k,s_0)=
+	  (1-\beta_kp^{-s_0})
+	  \cdot \frac{L_\infty(f_k,s_0)}{\Omega_{f_k}}=
+\]
+When $k-2$, reduces to
+$L_p^*(2,1)=\frac{L_\infty(E,1)}{\Omega_E}$ since 
+$\beta_2=0,\Omega_{f_2}=\Omega_E, \Omega_2=1$.
+
+By functional equation $L_p(k,k/2)=0$,
+at  $(k,s)=(2,1)$,
+ \[
+	 L_p(k,s)\sim c\cdot (-\frac{1}{2}(k-2)+(s-1))\quad c\in \Zp
+\]
+Comparing and get 
+\[
+	L'_p(E,1)=-2a'_p(2)\cdot 
+	\frac{L_\infty(E,1)}{\Omega_E}.
+\]
+It remains to prove $\mathcal{L}_p(E)=-2a'_p(2)$,
+recall that  $a_p(2)=0$.
+
+From the uniformization, let $V=V_p(E)$
+ \[
+	 0\to \Qp(1)\to V\to \Qp\to 0
+\]
+determines a class $\xi\in H^1(G_{\Qp},\Qp(1))$.
+\[
+	(\ordp,\log_p)\colon H^1(\Qp(1))\cong \Qp^2
+\]
+so $\mathcal{L}_p(E)$ is the slope of the line  $\xi$.
+
+ \[
+	 0\to \Lambda(\chi\psi)\to \mathbf{T}(\varphi^{-1})\to \Lambda\to 0
+	 \Longrightarrow
+	 0\to \Qp(\chi_k\psi_k)\to \mathbf{V}_k\to \Qp\to 0
+	 \Longrightarrow
+	 \xi_k\in H^1(\Qp(\chi_k\psi_k))
+\]
+where $\psi=\varphi^{-2}$.
+Clearly(?) $\xi_k\neq 0$ if  $k$ is close to  $2$,
+but $H^1(\Qp(\chi_k\psi_k)$ is one-dimensional  when $k\neq 2$ 
+\[
+	\frac{d\psi_k(\Frob_p)}{dk}\vert_{k=2}=\mathcal{L}_p(E)
+\]
+
+In general, 
+start with newform of weight $2$ over  $\Gamma_1(Np)(p\nmid N)$
+with split multiplicative reduction at $p(a_p(f)=1)$. 
+
+
+%\bibliographystyle{amsalpha}
+%\bibliography{biblio}
+\end{document}
