@@ -1,137 +1,47 @@
 \documentclass[leqno]{amsart}
-\usepackage{amssymb}
 \usepackage{amsmath} 
-\usepackage{enumitem}
-\usepackage{hyperref}
-\usepackage{mathrsfs}
-\usepackage{color}
-\usepackage{mathtools,caption,bbm,euscript}
+\usepackage{amssymb,mathtools,stmaryrd}
+\usepackage{mathrsfs,euscript}
 \usepackage[table,dvipsnames]{xcolor}
-\usepackage{tikz-cd,tikz}
-\usetikzlibrary{patterns}
+\usepackage{hyperref,tikz-cd,enumitem}
 \usepackage[utf8]{inputenc}
-\usepackage[OT2,T1]{fontenc}
 \hypersetup{
  colorlinks=true,
  linkcolor=DarkOrchid,
  filecolor=blue,
  citecolor=olive,
  urlcolor=orange,
- pdftitle={Notes on Iwasawa theory},
- %pdfpagemode=FullScreen,
- }
-\usepackage{booktabs}
+ pdftitle={Pask\={u}nas' theory},
+}
 
-%[label=(\alph*)]
-%[label=(\Alph*)]
-%[label=(\roman*)]
-%[label={(\bfseries R\arabic*)}]
-
-\DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
-\DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}
+\newcommand{\fix}[1]{\textcolor{Red}{#1}}
 
 \setlength{\textwidth}{\paperwidth}
 \addtolength{\textwidth}{-2in}
 \calclayout
 
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}[thm]{Conjecture}
 
-\newcommand{\smat}[1]{\left( \begin{smallmatrix} #1 \end{smallmatrix} \right)}
-\newcommand{\mat}[1]{\left( \begin{smallmatrix} #1 \end{smallmatrix} \right)}
-\newcommand{\dBr}[1]{\llbracket{#1}\rrbracket}
-\newcommand{\leg}[2]{\left(\frac{#1}{#2}\right)}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
 
-% double bracket
-\makeatletter
-\newsavebox{\@brx}
-\newcommand{\llangle}[1][]{\savebox{\@brx}{\(\m@th{#1\langle}\)}%
-  \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
-\newcommand{\rrangle}[1][]{\savebox{\@brx}{\(\m@th{#1\rangle}\)}%
-  \mathclose{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
-  \newcommand{\llbracket}[1][]{\savebox{\@brx}{\(\m@th{#1[}\)}%
-  \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
-\newcommand{\rrbracket}[1][]{\savebox{\@brx}{\(\m@th{#1]}\)}%
-  \mathclose{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
-\makeatother
-
-%%% Unitary group specific
-\newcommand{\V}{\mathbf V} 
-\newcommand{\W}{\mathbf W} 
-\newcommand{\G}{\mathbf G} %GU(2,2)
-\newcommand{\X}{\mathbf H} %Hermitian symmetric domain
-\newcommand{\KK}{\mathbf K} %compact open subgroup
-\newcommand{\xx}{\mathbf x}
-\newcommand{\yy}{\mathbf y}
-\newcommand{\nn}{\mathbf n} %unipotent
-
-\newcommand{\qdr}[1]{\underline{ #1 }}
-\newcommand{\cA}{\mathcal A} %complex abelian varieties
-\newcommand{\cB}{\mathcal B} %complex abelian varieties
-\newcommand{\bB}{\mathbf B}
-
-\newcommand{\mm}{\mathbf{m}}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{ack}{Acknowledgement}
 
 
-\newcommand{\balpha}{\boldsymbol{\alpha}} %diagonal torus elements
-\newcommand{\bbeta}{\boldsymbol{\beta}} %diagonal torus elements
-\newcommand{\bnu}{\boldsymbol{\nu}} %character on diagonal torus
-\newcommand{\bmu}{\boldsymbol{\mu}} %character on diagonal torus
+%%%%%%%%%% COMMONLY USED COMMAND %%%%%%%%%%%%%%%%
 
-%%% modular form specific
+\newcommand{\smat}[1]{\left(\begin{smallmatrix} #1 \end{smallmatrix}\right)}
+\newcommand{\id}{\mathbf{1}}
+\newcommand{\oo}{\mathcal{O}} 
+\newcommand{\eo}{\EuScript{O}}
+\newcommand{\fF}{\mathbb{F}} % residue field
 
-\newcommand{\wt}[1]{\underline{ #1 }}
-\newcommand{\bwt}[1]{\underline{\boldsymbol { #1 }}}
-\newcommand{\M}{\mathbf{M}}
-\newcommand{\Mk}{\mathbf{M}_{\wt{k}}}
-\newcommand{\pM}{\widehat{\mathbf{M}}}
-\newcommand{\pMk}{\widehat{\mathbf{M}}_{\wt{k}}}
-\newcommand{\AM}{\mathcal{A}}
-\newcommand{\bun}{\mathcal{E}}
-\newcommand{\ii}{\mathbf i}
-\newcommand{\ff}{\mathbf f}
-\newcommand{\her}{\EuScript{H} }
-
-
-
-\newcommand{\phk}{\mathcal{H}_{\wt{k}}} %Hecke algebra
-
-
-\newcommand{\vk}{v_{-\wt{k}}} % lowest weight vector
-\newcommand{\lk}{\mathnormal{l}_{\wt{k}}} % projection to lowest weight
-\newcommand{\blk}{\mathnormal{l}_{\bwt{k}}} % projection to lowest weight
-\newcommand{\Lk}{L_{\wt{k}}} 
-\newcommand{\pf}{\hat{f}} % algebraic modular form
-\newcommand{\pfk}{\hat{f}_{\wt{k}}}
-\newcommand{\euF}{\EuScript{F}} % Hida family
-\newcommand{\B}{\mathbf{B}} % pairing of algebraic modular form
-
-
-\newcommand{\ww}{\boldsymbol{\omega}}
-\DeclareMathOperator{\an}{an}
-\DeclareMathOperator{\ordp}{{ord}_p}
-\DeclareMathOperator{\cts}{cts}
-\DeclareMathOperator{\Frob}{Frob}
-
-
-%%% Linear algebraic groups
-\DeclareMathOperator{\GL}{GL}
-\DeclareMathOperator{\SL}{SL}
-\DeclareMathOperator{\Sp}{Sp}
-\DeclareMathOperator{\Mp}{Mp}
-\DeclareMathOperator{\GSp}{GSp}
-\DeclareMathOperator{\UU}{U}
-\DeclareMathOperator{\GUU}{GU}
-\DeclareMathOperator{\gl}{\mathfrak{gl}}
-\DeclareMathOperator{\mtr}{tr}
-\DeclareMathOperator{\diag}{diag}
-\DeclareMathOperator{\Ad}{Ad}
-\DeclareMathOperator{\vol}{vol}
-
-\DeclareMathOperator{\val}{val}
-\DeclareMathOperator{\odp}{ord}
-\DeclareMathOperator{\Lie}{Lie}
-\DeclareMathOperator{\Pol}{Pol_p}
-
-%%% Adelic rings
 \newcommand{\Q}{{\mathbf{Q}}}
 \newcommand{\Z}{{\mathbf{Z}}}
 \newcommand{\Qp}{\mathbf{Q}_p}
@@ -141,114 +51,90 @@
 \newcommand{\R}{\mathbf R}
 \newcommand{\C}{\mathbf C}
 \newcommand{\A}{\mathbf A}
-\newcommand{\hZ}{{\hat{\mathbf{Z}}}}
-\newcommand{\dd}{\mathfrak{d}} %different
-\newcommand{\DD}{\mathcal{D}}  %discriminant
-
+\newcommand{\Cl}{Cl} %class_group
 \newcommand{\arch}{\mathbf{a}}
-\newcommand{\fin}{\mathbf{h}}
-
-\newcommand{\F}{{\mathcal{F}}} %global 
-\newcommand{\OF}{{\mathcal{O}_{\F}}}
-\newcommand{\K}{{\mathcal{K}}} %global quadratic
-\newcommand{\OK}{\mathcal{O}_{\K}}
-\newcommand{\kk}{F} %local
-\newcommand{\E}{E} %local quadratic
-
-
-\DeclareMathOperator{\Sel}{Sel}
-\DeclareMathOperator{\Gal}{Gal}
-\DeclareMathOperator{\Nr}{\mathsf{N}}
+\newcommand{\finite}{\mathbf{h}}
+\DeclareMathOperator{\Nr}{N}
 \DeclareMathOperator{\Tr}{Tr}
-\newcommand{\qch}{\epsilon} % quadratic character of K/F
 
-
-%%% Fonts
-\newcommand{\oeu}{\EuScript{O}}
-\newcommand{\eeu}{\EuScript{E}}
-\newcommand{\feu}{\EuScript{F}}
-\newcommand{\geu}{\EuScript{G}}
-\newcommand{\keu}{\EuScript{K}}
-
-\newcommand{\oo}{\mathcal O}
-\newcommand{\bs}{\mathcal S}
-\newcommand{\id}{\mathbf{1}}
-
-\newcommand{\1}{\mathbf{1}} 
-\newcommand{\bfe}{\mathbf e}
-\newcommand{\bff}{\mathbf f}
-
-\newcommand{\bX}{\mathbb{X}}
-\newcommand{\bY}{\mathbb{Y}}
-\newcommand{\bV}{\mathbb{V}}
-\newcommand{\bW}{\mathbb{W}}
-
-\newcommand{\fa}{\mathfrak a}
-\newcommand{\fg}{\mathfrak g}
-\newcommand{\fc}{\mathfrak c}
-\newcommand{\fs}{\mathfrak s}
-\newcommand{\fm}{\mathfrak m}
-\newcommand{\fn}{\mathfrak n}
-\newcommand{\fl}{\mathfrak l}
-\newcommand{\fp}{\mathfrak p}
-\newcommand{\bfp}{\overline{\mathfrak p}}
-\newcommand{\fq}{\mathfrak q}
-\newcommand{\bfq}{\overline{\mathfrak q}}
-
-\newcommand{\btheta}{\boldsymbol{\theta}}
-\newcommand{\bdelta}{\boldsymbol{\delta}}
-
-
-\newcommand{\fG}{\mathfrak{G}}
-\newcommand{\fX}{\mathfrak{X}}
-\newcommand{\euW}{\EuScript{W}}
-
-
-%%% Categorical
-\DeclareMathOperator{\Ext}{Ext}
 \DeclareMathOperator{\End}{End}
-\DeclareMathOperator{\Hom}{Hom}
-\DeclareMathOperator{\Inj}{Inj}
-\DeclareMathOperator{\Isom}{Isom}
 \DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Tor}{Tor}
 \DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\cInd}{c-Ind}
+\DeclareMathOperator{\nInd}{n-Ind}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Image}{Im}
 \DeclareMathOperator{\coker}{coker}
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\corank}{corank}
 
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Ad}{Ad}
 
-\DeclareMathOperator{\Res}{Res}
-\DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\mtr}{tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\chr}{char} 
+
+\DeclareMathOperator{\vol}{vol} %volume
+\DeclareMathOperator{\val}{val} %valuation
+\DeclareMathOperator{\ind}{ind} %index
+\DeclareMathOperator{\odr}{ord} %order
+
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\Ass}{Ass}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Der}{Der}
+\DeclareMathOperator{\Fitt}{Fitt}
+\DeclareMathOperator{\depth}{depth}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\Inj}{Inj}
+\DeclareMathOperator{\Isom}{Isom}
+
+\DeclareMathOperator{\Gal}{\mathcal{G}}
+\DeclareMathOperator{\WD}{WD}
+\DeclareMathOperator{\Rec}{Rec}
 \DeclareMathOperator{\rec}{rec}
-\DeclareMathOperator{\rrho}{\bar{\rho}}
+\DeclareMathOperator{\Art}{Art}
+\newcommand{\Fr}{\textnormal{Fr}} %geometric Frobenius
+\newcommand{\frob}{\textnormal{frob}} %arithmetic Frobenius
+\newcommand{\dR}{\textnormal{dR}}
+\newcommand{\pst}{\textnormal{pst}}
+\newcommand{\st}{\textnormal{st}}
+\newcommand{\cris}{\textnormal{cris}}
+
+\newcommand{\cont}{\textnormal{cont}}
+\newcommand{\cts}{\textnormal{cts}}
+
+\newcommand{\fa}{\mathfrak{a}}
+\newcommand{\fc}{\mathfrak{c}}
+\newcommand{\ff}{\mathfrak{f}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\fk}{\mathfrak{k}}
+\newcommand{\fl}{\mathfrak{l}}
+\newcommand{\fm}{\mathfrak{m}}
+\newcommand{\fn}{\mathfrak{n}}
+\newcommand{\fp}{\mathfrak{p}}
+\newcommand{\fq}{\mathfrak{q}}
+\newcommand{\fs}{\mathfrak{s}}
+\newcommand{\ft}{\mathfrak{t}}
+
+%%%%%%%%%% MORE SPECIFIC COMMAND %%%%%%%%%%%%%%%%
 
 
+%%% Number Fields
 
-\newcommand{\bw}{{w^c}}
-\newcommand{\ee}{\mathbf e}
-
-
-\newtheorem*{theorem*}{Theorem}
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{cor}[thm]{Corollary}
-
-
-\theoremstyle{definition}
-\newtheorem{definition}[thm]{Definition}
-\newtheorem{defn}[thm]{Definition}
-\theoremstyle{remark}
-\newtheorem{rem}[thm]{Remark}
-\newtheorem*{Remark*}{Remark}
-\newtheorem{ack}{Acknowledgement}
-
-\newcommand{\red}[1]{\textcolor{Red}{#1}}
-
-
+\newcommand{\F}{{\mathcal{F}}} %global totally real
+\newcommand{\K}{{\mathcal{K}}} %global CM
 
 \begin{document}
-\title{Notes on Iwasawa theory}
+\title{Wiles' proof of Iwasawa main conjecture}
 \author[Y-S.~Lee]{Yu-Sheng Lee}
 \address{Department of Mathematics, University  of Michigan, Ann Arbor, MI 48109, USA}
 \email{yushglee@umich.edu}
@@ -259,527 +145,175 @@
 \tableofcontents
 
 
-\section{Galois deformation}
+\section{L-functions}
 
 
-
-Let $\Gamma$ be a group 
-and  $\rrho\colon \Gamma\to \GL_k(V)$
-be a finite-dimensional representation
-over a finite field $k$.
-\begin{lem}[Burnside theorem]
-Let $R\subset \End_k(V)$
-be the subalgebra generated by  $\rrho(\Gamma)$ over  $k$.
-Then $R=\End_k(V)$ when 
-$\rrho$ is absolutely irreducible.
-\end{lem}
-\begin{proof}
-	Since $R\otimes_k\bar{k}\subset 
-	\End_{\bar{k}}(V\otimes_k\bar{k})$,
-	by dimension counting it suffices 
-	to assume $k=\bar{k}$.
-	Thus $k=\End(\rrho)=\End_R(V)$ since
-	it is a division algebra
-	over an algebraically closed field.
-	And therefore $R=\End_k(V)$
-	by Jacobson's density theorem.
-\end{proof}
-\begin{lem}[Schur's lemma]
-	If $\rrho$ is absolutely irreducible,
-	then $\End(\rrho)=k$.
-\end{lem}
-\begin{proof}
-	This follows from Burnside's theorem
-	since $\End(\rrho)$ is the center of $R=\End_k(V)$.
-\end{proof}
-\begin{lem}[Braur-Nesbitt]
-	Let $\rrho'\colon \Gamma\to \GL_k(V')$
-	be another representation.
-	Suppose $n=\dim_kV=\dim_kV'<\textnormal{char}(k)$
-	and  $\mtr\rrho=\mtr\rrho'$,
-	then  $\rrho\cong\rrho'$
-	if $\rrho$ is irreducible.
-\end{lem}
-\begin{proof}
-	Let $\{V=V_1,\cdots,V_r\}$ 
-	be the irreducible components 
-	appearing in the semi-simplification
-	of  $V\oplus V'$
-	By Jacobson's density theorem,
-	there exists projectors
-	$e_1,\cdots,e_r\in k[\Gamma]$
-	such that $e_i$ acts as the identity map on  $V_i$
-	and trivially on  $V_j$ for  $i\neq j$.
-	The lemma now follows from comparing
-	$\mtr\rrho(e_i)=\mtr\rrho'(e_i)$.
-\end{proof}
-\begin{lem}[Carayol lemms]
-	If $\rrho$ is absolutely irreducible
-	and the image of $\mtr\rrho$
-	lies in a subfield  $k'\subset k$,
-	then $\rrho$ is isomorphic 
-	to the base change of 
-	a representation over $k'$.
-\end{lem}
-\begin{proof}
-	With notations as above,
-	let $\{y_1,\cdots,y_{n^2}\}\subset \rrho(\Gamma),
-	n=\dim_kV$
-	be a basis of $R=\End_k(V)$ over $k$.
-	Write $y=\sum_{i=1}^{n^2}a_iy_i,a_i\in k$
-	for any $y\in \rrho(\Gamma)$.
-	Then $a_i\in k'$ for all  $i$
-	since  $\mtr(yy_i)\in k'$
-	and  $(\mtr(y_iy_j))\in \GL_{n^2}(k')$.
-	Thus $\rrho(\Gamma)$ factors through
-	the  $k'$-algebra $R'$ generated by  
-	$\{y_1,\cdots,y_{n^2}\}$.
-
-
-	Since $R'\otimes_{k'}k=R=\End_k(V)$
-	is a central simple algebra over  $k$,
-	$R'$ is a central simple algebra over  $k'$.
-	Therefore $R'\cong M_n(k')$
-	by Wedderburn-Artin and dimension counting.
-	Let $\rrho'$ be the induced canonical 
-	representation over  $k'$,
-	then  $\rrho'\otimes_{k'}k\cong \rrho$
-	by Skolem-Noether theorem.
-\end{proof}
-
-
-Now fix an absolutely irreducible $\rrho\colon \Gamma\to \GL_n(k)$.
-The above results can be extends to 
-deformations of  $\rrho$ to an
-Artinian local ring $A$ with residue field  $k$.
-\begin{lem}
-	Let $\rho\colon \Gamma\to \GL_n(A)$
-	be a deformation to $A$,
-	and $R\subset M_n(A)$ be the $A$-subalgebra
-	generated by $\rho(\Gamma)$ over $A$,
-	then  $R=M_n(A)$.
-\end{lem}
-\begin{proof}
-	This follows from Nakayama's lemma
-	since $R/\fm R=M_n(k)$.
-\end{proof}
-\begin{lem}
-	Let $\rho\colon \Gamma\to \GL_n(A)$	
-	be a deformation to $A$,
-	then $\End(\rho)=A$.
-\end{lem}
-\begin{proof}
-	With notations as above,
-	this follows from $R=M_n(A)$.
-\end{proof}
-\begin{lem}
-	Suppse $\rho,\rho'\colon \Gamma\to \GL_n(A)$
-	are deformations of  $\rrho$ to  $A$
-	and  $\mtr\rho=\mtr\rho'$,
-	then  $\rho\cong \rho'$.
-\end{lem}
-\begin{proof}
-	This is proved by induction on $\ell(A)$.
-	Let  $I\subset A$ be a minimal ideal
-	so that $I\cong k$ as  $A$-modules.
-	By induction
-	$\rho(g)=\rho'(g)+\delta(g)$
-	for  $\delta\colon \Gamma\to M_n(I)=M_n(k)$
-	with $\mtr\delta=0$,
-	from which 
-	\[
-		 \rrho(g_1)\delta(g_2)=\delta(g_1)\rrho(g_2)
-		 \Longrightarrow
-		 \mtr(\rrho(g_1)\delta(g_2))=0
-		 \text{ when }
-		 g_2\in \ker(\rrho).
-	\]
-	Since $\rrho(g_1)$ generates  $M_n(k)$,
-	the above implies that  $\delta(g_2)=0$
-	when  $g_2\in\ker(\rrho)$.
-	Thus $\delta$ factors through
-	a derivation on $M_n(k)$.
-	Since any derivation is inner, 
-	there exists  $U\in M_n(k)$
-	such that  $\delta(g)=\rrho(g)U-U\rrho(g)$.
-	Therefore $\rho'=(1-U)\rho(1+U)$.
-\end{proof}
-\begin{lem}
-	Let $\rho\colon \Gamma\to \GL_n(A)$
-	be a deformation to $A$.
-	If the image of $\mtr\rho$
-	factors through an Artinian local $A'$
-	by a local homomorphism $A'\hookrightarrow A$,
-	then $\rho$
-	is the base change of a deformation to  $A'$.
-\end{lem}
-\begin{proof}
-	Let $k'\subset k$ be the residue fields
-	of $A'$ and  $A$,
-	by the Carayol lemma proved earlier
-	we may assume that  $\rho\mod \rm$
-	factors through $\GL_n(k')$.
-
-	Now pick $\{y_1,\cdots,y_{n^2}\}\subset\rho(\Gamma)$
-	such that $\bar{y}_i$ form 
-	a basis of $M_n(k)$ over $k$ 
-	(thus also a basis of $M_n(k')$ over $k'$).
-	Since $\rho(\Gamma)$ generates
-	$M_n(A)$ over  $A$,
-	$\{y_i\}$ is also a basis for $M_n(A)$.
-	The same arguments as before then shows that
-	$\rho(\Gamma)$ factors through 
-	the  $A'$-algebra $R'$ generated by  $\{y_i\}$.
-	Since $R'/\fm'R'\cong M_n(k')$ by assumption,
-	$R'$ is an Azumaya algebra over the Henselian ring  $A'$.
-	Thus $R'$ is isomorphic to a matrix algebra over $A'$,
-	and necessarily isomorphic to $M_n(A')$
-	by dimension counting.
-	The rest of the arguments goes as earlier,
-	using the Skolem-Noether theorem
-	for the Azumaya algebras.
-\end{proof}
-
-Let $R^\square$
-be the universal framed deformation.
-\[
-	 \Hom_k(\fm^\square/(\varpi)+\fm^{\square 2},k)
-	 \Longleftrightarrow
-	 \Hom(R^\square, k[\epsilon])
-	 \Longleftrightarrow
-	 D^\square(k[\epsilon])
-	 \Longleftrightarrow
-	 Z^1(\Gamma,ad\rrho)
-\]
-Given by  $f\in \Hom_k(\fm^\square/(\varpi)+\fm^{\square 2},k)$ 
-gives $\varphi(a+x)=\bar{a}+f(x)\epsilon$ 
-for $a\in \oo, x\in \fm^\square$,
-well-defined since
-$\oo\cap\fm^\square=(\varpi)$.
-Given a deformation 
-$\rho=\rrho+\theta,\theta\in M_n(k\epsilon)=M_n(k)$,
-then  $\theta\rrho^{-1}\in Z^1(\Gamma, ad\rrho)$.
-
- \[
-	 0\to (ad\rrho)^\Gamma\to ad\rrho\to 
-	 Z^1(\Gamma,ad\rrho)\to H^1(ad\rrho)\to 0
-\]
-thus $d=\dim_k Z^1=\dim_k H^1-\dim H^0+n^2$.
-
-
-Consider $\oo\llbracket x_1,\cdots,x_d\rrbracket\to R^\square$
-lifting basis of 
-$\fm^\square/(\varpi)+\fm^{\square 2 }$.
-Let $J$ be the kernel.
-
- 
-
-$G$ is a profinite group satisfying 
- \[
-	 \text{the max pro-p quotient of any finite index subgroup
-	 is . f.g.}
-	 \Longleftrightarrow
-	 \dim_{\mathbb{F}_p}\Hom(G,\mathbb{F}_p)<\infty.
-\]
-$D^{\square}_{V_{\mathbb{F}_p}}$ is representable,
-$D_{V_{\mathbb{F}_p}}$ is representable if $\Hom(V,V)$ is one-dimensional.
-Use that  $PGL$ acts freely on framed-deformation.
-\begin{itemize}
-	 \item (Brauer-Nesbitt) abs.irred over $k$ determined by trace.
-	 \item deformation of res.abs.irred determined by trace
-		 (Serre Carayol)
-	 \item also true if $\dim\Ext^1(\chi_1,\chi_2)=1$
-		 for $\chi_1\neq \chi_2$
-	 \item If $S\to R$ local homomorphism,
-		 and  $tr\rho\in S$,
-		 then conjugate to  $\GL_n(S)$
-	 \item  $D(\mathbb{F}[\epsilon])\Ext^1(V,V)$
-	 \item  $\cong H^1(G, adV)$, 
-	 \item and  $\dim D^\square=\dim D+n^2-(ad V)^G$
-		 counting fiber.
-\end{itemize}
-	
-
-
-
-
-\section{Skinner's notes}
-
-For a number field $F$ and a place $v$ of $F$,
-let $\rec_{F_v}: F_v^{\times} \rightarrow G_{F_v}^{ab}$ 
-be the reciprocity map of local class field theory, 
-normalized so that uniformizers map to lifts of the arithmetic Frobenius. 
-Similarly, we let $\rec_F: F^{\times} \backslash \mathbb{A}_F^{\times} \rightarrow G_F^{ab}$ 
-be the reciprocity map of global class field theory, normalized so that 
-$\rec_F\vert_{F_v}=\rec_{F_v}$.
-Let $\epsilon:G_\Q\to \Zp^\times$ be the $p$-adic cyclotomic character.
-
-\subsection{Selmer group}
-Let $E$ be an elliptic curve over $F$,
-Kummer map
-\[
-    E(F)/mE(F)\xhookrightarrow{\kappa}
-    H^1(G_{F,\Sigma},E[m])\coloneqq
-    \ker\left\{H^1(F, E[m]) 
-    \xrightarrow{\res} \prod_{v \notin \Sigma} H^1\left(I_v, E[m]\right)\right\},
-\]
-$\Sigma$ such that $v\notin \Sigma$ implies
-that $v$ is a finite place not dividing $m$ and $E$ has good reduction at $v$.
-Then use $L=F(E[m])\subset F_\Sigma$
-\[
-    0 \rightarrow H^1\left(\Gal(L / F), E[m]^{G_L}\right) \rightarrow H^1\left(G_{F, \Sigma}, E[m]\right) \xrightarrow{\res} \Hom\left(\Gal(\left(F_{\Sigma} / L\right), E[m]\right).
-\]
-to show weak Mordell-Weil.
-
-For each place $v$ of $F$ the inclusion of $F$ in the completion $F_v$ induces a commutative diagram
-where $\kappa_v$ is just the Kummer map for $E$ over $F_v$. The Selmer group $\Sel_m(E / F)$ for the multiplication by $m$ on $E$ is
-\[
-\Sel_m(E / F)=\left\{c \in H^1(F, E[m]): \res_v(c) \in \operatorname{im}\left(\kappa_v\right) \forall v\right\} .
-\]
-
-This clearly contains the image of $\kappa$. Furthermore, by the argument explained above, if $v$ does not divide $m$ and $E$ has good reduction at $v$ then $\operatorname{im}\left(\kappa_v\right) \subset \ker\left\{H^1\left(F_v, E[m]\right) \xrightarrow{\res} H^1\left(I_v, E[m]\right)\right\}$. In particular, $\Sel_m(E / F) \subseteq H^1\left(G_{F, \Sigma}, E[m]\right)$
+Throughout the note, 
+$\F$ is a totally real number field of degree $d=[\F:\Q]$ 
+and $\K$ is a totally imaginary quadratic extension of $\F$.
+We let $\Delta_\F$
+and $\Delta_\K$ denote the absolute discriminant of $\F$ and $\K$ respectively.
 
 \[
-\operatorname{Sel}_m(E / F)=\operatorname{ker}\left\{H^1(F, E[m]) \xrightarrow{r e s} \prod_v H^1\left(F_v, E\right)\right\} .
+	\begin{tikzcd}[column sep=tiny,row sep=tiny]
+        &  & H_\infty \\
+	\F_\infty \arrow[rru,dash] & & \\
+        &  & \\
+        &  & H=\F_{\psi}(\mu_p) \arrow[uuu,dash] \\
+	\F \arrow[uuu,dash] \arrow[rru,dash] & &                     
+	\end{tikzcd}
 \]
 
+\subsection{Class number formula}
+
+Let $E^+=\oo_\F^\times$ 
+and $E=\oo_\K^\times$
+denote the multiplicative groups of units in $\F$ and $\K$ respectively,
+and let $W\subset E$ denote the subgroups of roots of unity in $\K$.
+By Dirichlet's unit theorem,
+both groups have the same ranks $r=d-1$.
+And furthermore, the number $Q\coloneqq [E:WE^+]$ 
+is less than or equal to $2$ by \cite[Thm 4.12]{Washington},
+where the equality holds if and only if $W=E^{c-1}$.
+
+Now, the class number formulae for $\K$ and $\F$ 
+and that $R_\K/R_\F=2^r Q^{-1}$ (\cite[Thm 4.16]{Washington})
+imply that
 \[
-0 \rightarrow E(F) / m E(F) \xrightarrow{\kappa} H^1(F, E[m]) \rightarrow H^1(F, E)[m] \rightarrow 0
+	\left.\frac{\zeta_\K(s)}{\zeta_\F(s)}\right\vert_{s=1}=
+	\frac{(2\pi)^{d}h^-(\K)}{Qw\sqrt{\Delta_\K/\Delta_\F}}.
 \]
-and
+
+When $\K/\Q$ is abelian, 
+the left-hand side can be decomposed into L-values
+of odd Dirichlet characters.
+Combined with the conductor-discriminant formula
+$\sqrt{-1}^d\cdot \sqrt{\Delta_\K/\Delta_\F}
+=\prod_{\chi \text{ odd}}\mathfrak{g}(\chi)$,
+we obtain the formula
 \[
-0 \rightarrow E\left(F_v\right) / m E\left(F_v\right) \xrightarrow{\kappa_u} H^1\left(F_v, E[m]\right) \rightarrow H^1\left(F_v, E\right)[m] \rightarrow 0
+	h^-=Qw\prod_{\chi \text{ odd}}(-\frac{1}{2}B_{1,\chi})
+	=Qw\prod_{\chi \text{ odd}}\frac{L(0,\chi)}{2}.
 \]
 
-And we see that the image of $\kappa$ is just $\operatorname{ker}\left\{\operatorname{Sel}_m(E / F) \rightarrow H^1(F, E)\right\}$. In particular, there is a fundamental exact sequence
+In the particular case when 
+$\K=\Q(\zeta_{p^{n+1}N})$, where $p\nmid N$,
+we will further decompose the above into
 \[
-0 \rightarrow E(F) / m E(F) \xrightarrow{\kappa} \operatorname{Sel}_m(E / F) \rightarrow \amalg(E / F)[m] \rightarrow 0,
+	h^-
+	=Qw\prod_{\xi\in \mu_{p^n}}(-\frac{1}{2}B_{1,\omega^{-1}\psi_\zeta})
+	\prod_{\substack{\chi \text{ odd}\\\chi\not\equiv \omega^{-1}\bmod p}}
+	(-\frac{1}{2}B_{1,\chi})
 \]
-where
+where the product of the first three terms is a $p$-unit.
+Indeed, the Kubota--Leopoldt $p$-adic L-function
+satisfies the interpolation formula
 \[
-\amalg(E / F)=\operatorname{ker}\left\{H^1(F, E) \xrightarrow{r e s} \prod_v H^1\left(F_v, E\right)\right\}
+	\phi_{k,\xi}(G_{\psi}H_{\psi})=
+	(1-\psi \psi_\xi \omega^{-k}(p))
+	L(1-k,\psi \psi_\xi \omega^{-k})\quad
+	\text{ for }k\geq 1.
 \]
-
-If $m \mid m^{\prime}$ then the inclusion $E[m] \subset E\left[m^{\prime}\right]$ induces a surjection $H^1(F, E[m]) \rightarrow H^1\left(F, E\left[m^{\prime}\right]\right)[m]$ and so a surjection $\operatorname{Sel}_m(E / F) \rightarrow \operatorname{Sel}_{m^{\prime}}(E / F)[m]$. The kernel is just $E\left[\frac{m^{\prime}}{m}\right](F) / m E\left[m^{\prime}\right](F)$. If $F^{\prime} / F$ is a finite extension, then the restriction map $H^1(F, E[m]) \rightarrow H^1\left(F^{\prime}, E[m]\right)$ induces a homomorphism $\operatorname{Sel}_m(E / F) \rightarrow \operatorname{Sel}_m\left(E / F^{\prime}\right)$. Furthermore, if $F^{\prime} / F$ is a Galois extension, then the action of $\operatorname{Gal}\left(F^{\prime} / F\right)$ on $H^1\left(F^{\prime}, E[m]\right)$ defines an action on $\operatorname{Sel}_m\left(E / F^{\prime}\right)$, and the maximal $\operatorname{Gal}\left(F^{\prime} / F\right)$-fixed subgroup contains the image of $\operatorname{Sel}_m(E / F)$.
-
-2.1.4. The $p^{\infty}$-Selmer group. The $p^{\infty}$-Selmer group of $E$ is obtained by taking the direct limits over $n$ of the $p$-power Selmer groups $\operatorname{Sel}_{p^n}(E / F)$ :
+And we have $G_\psi\in \Lambda^\times, H_\psi(T)=T$
+when $\psi$ is the trivial character.
+Therefore, the product of
 \[
-\operatorname{Sel}_{p^{\infty}}(E / F)=\underset{n}{\lim } \operatorname{Sel}_{p^n}(E / F) .
+	\prod_{\xi\in \mu_{p^n}}(-\frac{1}{2}B_{1,\omega^{-1}\psi_\zeta})
+	\sim \prod_{\xi\in \mu_{p^n}}L(0,\psi_\xi \omega^{-1})
+	\sim \prod_{\xi\in \mu_{p^n}}\phi_{1,\xi}(T)^{-1}
+	=\prod_{\xi\in \mu_{p^n}}(\xi u-1)^{-1}
+	=(u^{p^n}-1)^{-1},
 \]
+where $u\in \Zp^\times$ is a topological generator of $1+p\Zp$,
+with $Qw\sim p^{n+1}$ is a $p$-unit.
+Here we write $a\sim b$ if the quotient $b/a$ of two numbers
+$a$ and $b$ is a $p$-unit.
 
-Since $\lim _{\longrightarrow} H^1\left(F, E\left[p^n\right]\right)=H^1\left(F, E\left[p^{\infty}\right]\right)$ the $p^{\infty}$-Selmer group can also be directly defined as
-\[
-\operatorname{Sel}_{p^{\infty}}(E / F)=\operatorname{ker}\left\{H^1\left(F, E\left[p^{\infty}\right]\right) \xrightarrow{r e s} \prod_v H^1\left(F_v, E\right)\right\} .
-\]
-
-The natural surjection $H^1\left(F, E\left[p^n\right]\right) \rightarrow H^1\left(F, E\left[p^{\infty}\right]\right)\left[p^n\right]$ induces a surjection $\operatorname{Sel}_{p^n}(E / F) \rightarrow$ $\operatorname{Sel}_{p^{\infty}}(E / F)\left[p^n\right]$ with kernel $E\left[p^{\infty}\right](F) / p^n E\left[p^{\infty}\right](F)$.
-
-Taking the direct limit over the fundamental exact sequences for the multiplication by $p^n$ maps yields the fundamental exact sequence for the $p^{\infty}$-Selmer groups:
-\[
-0 \rightarrow E(F) \otimes \mathbb{Q}_p / \mathbb{Z}_p \rightarrow \operatorname{Sel}_{p^{\infty}}(E / F) \rightarrow \amalg(E / F)\left[p^{\infty}\right] \rightarrow 0 .
-\]
-
-\section{Elliptic curves with CM}
-
-\[
-\begin{tikzpicture}
-	\draw(0,3)--(0,-2) (-4,0)--(3,0);
-	\draw[dashed](-2,-2)--(3,3) (1,-2)--(-3,2);
-	\path[pattern=north east lines] 
-		(-3,0)--(-3,2)--(-1,2)--(-1,0)--cycle;
-	\path[pattern=north east lines] 
-		(0,-1)--(0,-2)--(2,-2)--(2,-1)--cycle;
-\end{tikzpicture}
-\]
-
-
-
-\section{L-invariant}
-Let $E/\Q$ be an elliptic curve, assume that
-\begin{enumerate}[label=(\alph*)]
-	\item $E$ has stable reduction modulo $p$
-	\item  $E$ has split multiplicative reduction at  $p$.
-\end{enumerate}
-Tate's $p$-adic uniformization thoery, $q_E\in p\Zp$
-such that  $E(\bar{\Q}_p)\cong \bar{\Q}_p^\times/q_E^{\Z}$, 
-which is defined over $\Qp$. 
-\[
-	 \mathcal{L}_p(E)\coloneqq \frac{\log_p(q_E)}{\ordp(q_E)}
-\]
-
-\begin{thm}
-	If $p\geq 5$, then
-	 \[
-		 L'_p(E,1)=\mathcal{L}_p(E)\cdot 
-		 \frac{L_\infty(E,1)}{\Omega_\infty}
-	\]
+\begin{thm}[Herbrand--Ribet]
+	Let $A=Cl_{\Q(\mu_p)}\otimes\Zp=\bigoplus_{i=0}^{p-2}A_{i}$
+	be the decomposition 
+	induced by the action of $Gal(\Q(\mu_p)/\Q)$
+	on the ideal class group,
+	where $A_i$ is the component on which 
+	the Galois group acts by $\omega^i$.
+	Then when $3\leq i\leq p-2$ is an odd number,
+	$A^i\neq 0$ if and only if  
+	$p\mid B_{p-i}\sim L(0,\omega^{-i})$.
 \end{thm}
 
-Under the assumption that $E$ has split multiplicative reduction
+\begin{rem}
+	It is known that both $A_0$ and $A_1$ are always trivial.
+	This agrees with the class number formula
 \[
-	L_p(E,2-s)=w_p \langle N\rangle^{s-1}L_p(E,s)
+	h^-=p\prod_{i \text{ odd}}(-\frac{1}{2}B_{1,\omega^{i}})
+	\sim pB_{1,\omega^{-1}}\cdot
+	\prod_{\substack{i=3 \\i\text{ odd}}}^{p-2}(B_{1,\omega^{i}})
 \]
-where $w_p=-w_\infty$.
-\begin{itemize}
-	\item if $w_\infty=-1$, then trivial since
-		$L'_p(E,1)=0$ then.
-	\item if  $w_\infty=1$,  
-		then $L_p(E,s)$ has odd order at $s=1$.
-		The order is one iff
-		$L_\infty(E,1)\neq 0$ and  $\log_p(q_E)\neq 0$.
-\end{itemize}
-Conjecturally
-\[
-	ord_{s=1}(L_p(E,s))=
-	ord_{s=1}(L_\infty(E,s))=+1
-\]
+since $pB_{1,\omega^{-1}}$ is a $p$-unit.
+On the other hand, the Vandiver conjectures expects that 
+$A_i=0$ for all $i$ even.
+\end{rem}
 
-As an example, let $E=X_0(11)$ and  $p=11$.
-Let 
- \[
-	 \rho_E\colon G_\Q\to \Aut(T_pE),\quad
-	 f_E=q\prod(1-q^n)^2(1-q^{11n})^2 
-	 \text{ is ordinary at }p.
-\]
-The universal ordinary Hecke algebra is 
-$\Lambda=\Zp\llbracket 1+p\Zp\rrbracket$.
-By Hida's theory, there exists a free rank two $\Lambda$-module
-$\mathbf{T}$ and 
-\[
-	\rho\colon G_\Q\to \Aut_\Lambda(\mathbf{T}),\quad
-	\mathbf{T}/P_0\mathbf{T}\cong T_pE
-\]
-where $P_0\subset\Lambda$ is the augmentation ideal.
- \begin{enumerate}[label=(\alph*)]
-	\item for $k\in \Zp$,
-		let $\sigma_{k-2}\colon\Lambda\to\Zp$
-		extends $t\mapsto t^{k-2}$ on $1+p\Zp$.
-		Let  $P_k=\ker(\sigma_{k-2})$
-	\item $\rho_2=\rho_E$
-	\item for each integer  $k\geq 2$,
-		there is a new form  $f_k$
-		of conductor dividing  $p$
-		whose Galois representation is 
-		$\mathbf{T}_k=\mathbf{T}/P_k\mathbf{T}$
-		 \[
-			\text{conductor}=1 \Longleftrightarrow
-			k>2 \text{ and } k\equiv 2\mod p-1
-		\]
-		Otherwise, the condcutor is $p$
-		and the Nebentypus is  $\omega^{2-k}$.
-	\item 
-		\[
-			\rho\vert_{G_{\Qp}}\sim 
-			\smat
-			{\chi\varphi^{-1} & * \\
-			0 & \varphi }
-		\]
-		where $\varphi\colon G_{\Qp}\to \Lambda^\times$
-		is unramified and $\chi\colon G_{\Qp}\to \Lambda^\times$
-		is such that 
-		$\sigma_{k-2}\circ \chi=\chi_0^{k-2}\omega^{2-k}$ 
-		where $\chi_0$ is the cyclotomic character.
-\end{enumerate}
-Let $a_p=\varphi(\Frob_p)\in \Lambda^\times$
-The $p$-factor of  $L_\infty(f_k,s)$ is
- \[
-	 [(1-\alpha_kp^{-s})(1-\beta_kp^{-s})]^{-1},\quad
-	 \alpha_k=a_p(k)\coloneqq \sigma_{k-2}(a_p),
-	 \beta_k=
-	 \begin{cases}
-		 p^{k-1}/\alpha_k, & k>2\text{ and }k\equiv 2\mod p-1,\\
-		 0, & \text{otherwise}.
-	 \end{cases}
-\]
-Then  $\alpha_k\equiv \alpha_2=1$ (interpolated by $a_p$ )
-and  $\beta_k\equiv 0\mod p$ (cannot be interpolated).
-\[
-	\mathbf{f}\colon \sum a_nq^n\in \Lambda\llbracket q\rrbracket
-	\Longrightarrow
-	\mathbf{f}_k=\sum a_n(k)q^n= f_k^*\coloneqq
-	f_k(z)-\beta_kf_k(pz)
-\]
-
-There is a two variable $p$-adic L-function $L_p(k,s), k,s\in \Zp$.
- \begin{enumerate}[label=(\alph*)]
-	 \item $L_p(k,s)$ is analytic for  $k,s\in \Zp$
-	 \item  $L_p(2,s)=L_p(E,s)$ and 
-		 $L_p(k,s)$ is  $L_p(f_k,s)$.
-		 \[
-			 L_p(k,s)=\Omega_k\cdot L_p(f_k,s),\Omega_k\in \Qp
-			 \text{ and } \Omega_2=1
-		 \]
-	 \item  $L_p(k,k-s)=-L_p(k,s)$
-	 \item  $L_p(k,1)=(1-q_p(k)^{-1})L_p^*(k,1)$
-		 where  $L_p^*(k,1)$ is a  $p$-adic analytic function 
-		 such that 
-		 \[
-			 L^*_p(2,1)=\frac{L_\infty(E,1)}{\Omega_E}
-		 \]
-\end{enumerate}
- For $k\geq2, 0<s_0<k, s\equiv 1\mod p-1$,
-  \[
-	  L_p(f_k,s_0)=
-	  (1-\beta_kp^{-s_0})(1-\alpha_k^{-1}p^{s_0-1})
-	  \cdot \frac{L_\infty(f_k,s_0)}{\Omega_{f_k}}=
-	  \frac{(1-\alpha_k^{-1}p^{s_0-1})}{(1-\alpha_kp^{-s_0})}
-	  \cdot \frac{L^{(p)}_\infty(f_k,s_0)}{\Omega_{f_k}}=
- \]
-When $s_0=1$, the factor 
-$1-a_p(k)^{-1}$ can be interpolated and is a non-unit,
-so $L_p(k,1)$ is divisible by which, the quotient 
-$L_p^*(k,1)$ is 
-\[
-	  L_p(f_k,s_0)=
-	  (1-\beta_kp^{-s_0})
-	  \cdot \frac{L_\infty(f_k,s_0)}{\Omega_{f_k}}=
-\]
-When $k-2$, reduces to
-$L_p^*(2,1)=\frac{L_\infty(E,1)}{\Omega_E}$ since 
-$\beta_2=0,\Omega_{f_2}=\Omega_E, \Omega_2=1$.
-
-By functional equation $L_p(k,k/2)=0$,
-at  $(k,s)=(2,1)$,
- \[
-	 L_p(k,s)\sim c\cdot (-\frac{1}{2}(k-2)+(s-1))\quad c\in \Zp
-\]
-Comparing and get 
-\[
-	L'_p(E,1)=-2a'_p(2)\cdot 
-	\frac{L_\infty(E,1)}{\Omega_E}.
-\]
-It remains to prove $\mathcal{L}_p(E)=-2a'_p(2)$,
-recall that  $a_p(2)=0$.
-
-From the uniformization, let $V=V_p(E)$
- \[
-	 0\to \Qp(1)\to V\to \Qp\to 0
-\]
-determines a class $\xi\in H^1(G_{\Qp},\Qp(1))$.
-\[
-	(\ordp,\log_p)\colon H^1(\Qp(1))\cong \Qp^2
-\]
-so $\mathcal{L}_p(E)$ is the slope of the line  $\xi$.
-
- \[
-	 0\to \Lambda(\chi\psi)\to \mathbf{T}(\varphi^{-1})\to \Lambda\to 0
-	 \Longrightarrow
-	 0\to \Qp(\chi_k\psi_k)\to \mathbf{V}_k\to \Qp\to 0
-	 \Longrightarrow
-	 \xi_k\in H^1(\Qp(\chi_k\psi_k))
-\]
-where $\psi=\varphi^{-2}$.
-Clearly(?) $\xi_k\neq 0$ if  $k$ is close to  $2$,
-but $H^1(\Qp(\chi_k\psi_k)$ is one-dimensional  when $k\neq 2$ 
-\[
-	\frac{d\psi_k(\Frob_p)}{dk}\vert_{k=2}=\mathcal{L}_p(E)
-\]
-
-In general, 
-start with newform of weight $2$ over  $\Gamma_1(Np)(p\nmid N)$
-with split multiplicative reduction at $p(a_p(f)=1)$. 
+\begin{rem}
+	We can describe (the dual of) the component $A_i$
+	through the Selmer group
+	\[
+	H^1_f(\Q, \mathbb{F}(\omega^i))
+	=\{\phi\colon Cl_{\Q(\mu_p)}\to \mathbb{F}\mid
+	\phi(x)=\omega^i(\gamma)\cdot \phi(\gamma^{-1}x \gamma)\}
+	\cong \Hom(A_i,\mathbb{F}).
+	\]
+	It may seem strange that the Selmer group for $\omega^i$
+	is related to the L-value of $\omega^{-1}$.
+	This is due to the fact that we have identified
+	Dirichlet characters with characters of Galois groups
+	through the arithmetic normalization,
+	but the Bloch--Kato conjecture
+	relates Selmer groups to the L-values
+	defined by the Euler products of characteristic polynomials
+	of the geometric Frobenii.
+\end{rem}
 
 
-%\bibliographystyle{amsalpha}
-%\bibliography{biblio}
+\subsection{Main conjecture over $\Q$}
+
+Let $\psi$ be an even Dirichlet character.
+We dnote $\Psi=\psi\langle*\rangle$
+and $\Psi^*=\epsilon \Psi^{-1}$.
+We then define
+\[
+	H_f^1(\Q,\Psi^*)=\ker
+	\bigg\{
+		H^1(\Q^\Sigma/\Q,\Psi^*)\to
+		\prod_{v\in \Sigma}H^1(I_v,\Psi^*)
+	\bigg\}
+\]
+when $\Sigma$ contains $p$ and all the places where
+$\psi$ is ramified. 
+Moreover, if $\psi$ is ramified at a place $\ell\neq p$
+and let $1\to I''\to I_\ell\to I'\to 1$,
+where $I'\cong \Zp(1)$
+and $I''$ is prime-to-$p$, then
+\[
+	H^1(I_\ell,\Psi^*)\cong H^1(I',(\Psi^*)^{I''})\cong
+	(\Psi^*)^{I''}/(\Psi^*(I')-1)=
+	(\Psi^*)^{I''}/(\psi^{-1}(I')-1)=0
+\]
+since either $\psi\vert_{I''}\neq 1$ and $(\Psi^*)^{I''}=0$,
+or $\psi\vert_{I''}= 1$, thus
+$\psi\vert_{I'}\neq 1$, and
+$(\Psi^*)^{I''}/(\psi^{-1}(I')-1)=0$.
+Therefore when $\Sigma$ contains exactly $p$ 
+and the primes where $\psi$ is ramified, then 
+\[
+	H_f^1(\Q,\Psi^*)=\ker
+	\bigg\{
+		H^1(\Q^\Sigma/\Q,\Psi^*)\to
+		H^1(I_p,\Psi^*)
+	\bigg\}
+\]
+
+
+\bibliographystyle{amsalpha}
+\bibliography{biblio}
 \end{document}
