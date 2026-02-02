@@ -76,9 +76,8 @@
 \DeclareMathOperator{\Ad}{Ad}
 
 \DeclareMathOperator{\GL}{GL}
-\DeclareMathOperator{\SL}{SL}
-\DeclareMathOperator{\mtr}{tr}
-\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\mtr}{tr} 
+
 \DeclareMathOperator{\chr}{char} 
 
 \DeclareMathOperator{\vol}{vol} %volume
@@ -92,13 +91,9 @@
 \DeclareMathOperator{\Ann}{Ann}
 \DeclareMathOperator{\Der}{Der}
 \DeclareMathOperator{\Fitt}{Fitt}
-\DeclareMathOperator{\depth}{depth}
-\DeclareMathOperator{\length}{length}
-\DeclareMathOperator{\Inj}{Inj}
-\DeclareMathOperator{\Isom}{Isom}
 
-\DeclareMathOperator{\Gal}{\mathcal{G}}
-\DeclareMathOperator{\WD}{WD}
+
+\DeclareMathOperator{\Gal}{Gal}
 \DeclareMathOperator{\Rec}{Rec}
 \DeclareMathOperator{\rec}{rec}
 \DeclareMathOperator{\Art}{Art}
@@ -125,13 +120,18 @@
 \newcommand{\fs}{\mathfrak{s}}
 \newcommand{\ft}{\mathfrak{t}}
 
+% Wiles
+
+\newcommand{\fX}{\mathfrak{X}}
+\newcommand{\fx}{\mathfrak{x}}
+
 %%%%%%%%%% MORE SPECIFIC COMMAND %%%%%%%%%%%%%%%%
 
 
 %%% Number Fields
 
-\newcommand{\F}{{\mathcal{F}}} %global totally real
-\newcommand{\K}{{\mathcal{K}}} %global CM
+\newcommand{\F}{{{F}}} %global totally real
+\newcommand{\K}{{{K}}} %global CM
 
 \begin{document}
 \title{Wiles' proof of Iwasawa main conjecture}
@@ -144,15 +144,26 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 
-
-\section{L-functions}
-
+\section{Notations}
 
 Throughout the note, 
 $\F$ is a totally real number field of degree $d=[\F:\Q]$ 
 and $\K$ is a totally imaginary quadratic extension of $\F$.
 We let $\Delta_\F$
 and $\Delta_\K$ denote the absolute discriminant of $\F$ and $\K$ respectively.
+
+If $\psi$ is an Artin character of $\Gal_\F$,
+we let $\F_\psi$ denote the abelian extension cut out by 
+$\ker(\psi)$. 
+If $\fq$ is a prime ideal prime to the conductor,
+then we write $\psi(\fq)=\psi(\frob_\fq)$.
+Let $\F_\infty$ denote the cyclotomic  $\Zp$-extension over $\F$.
+
+
+
+
+\section{L-functions}
+
 
 \[
 	\begin{tikzcd}[column sep=tiny,row sep=tiny]
@@ -275,7 +286,9 @@ $A_i=0$ for all $i$ even.
 \end{rem}
 
 
-\subsection{Main conjecture over $\Q$}
+\section{Selmer groups}
+
+
 
 Let $\psi$ be an even Dirichlet character.
 We dnote $\Psi=\psi\langle*\rangle$
@@ -313,6 +326,77 @@ and the primes where $\psi$ is ramified, then
 	\bigg\}
 \]
 
+\subsection{Over totally real}
+
+Let $\psi$ be an Artin character over $F$.
+Let $E/\Qp$ be a finite extension such that
+$\psi$ takes value in $E$
+and let  $\oo$ be the ring of integer of  $E$.
+
+Let $\Lambda^*_\psi=\Hom(\Lambda(\Psi),\mu_{p^\infty})$
+with $g\cdot \phi(\lambda)=\epsilon(g)\phi(\Psi(g)^{-1}\lambda)$.
+
+\subsection{control theorem}
+
+\subsection{surjectivity to the local cohomology}
+
+\section{Eisenstein Congruences}
+
+\subsection{Hida families and Galois representation}
+
+Let 
+$\fX=\{(k,\zeta)\mid k\in\Z_{k\geq 2},\zeta\in\mu_{p^\infty}\}$.
+A hida family is 
+\[
+	\mathscr{F}=
+	\left\{
+		\begin{aligned}
+			&c( \fa,\mathscr{F})\, 
+			\text{for integral ideals }\fa\\
+			&c_{\lambda}(0,\mathscr{F})\,
+			\text{ for }\lambda=1,\cdots,h
+		\end{aligned}
+	\right\}
+\]
+such that for almost all 
+$\nu=\nu_{k,\zeta}\colon \oo\llbracket T\rrbracket T\to \oo$ 
+sending $T\mapsto \zeta u^{k-2}$
+$\mathbf{f}_\nu\in M_k(\fn p^r)$
+
+\subsection{Galois representation}
+
+Let $f$ be an elliptic cuspidal newform
+with nebentypus  $\chi$.
+One can consider the Galois representation
+$\rho\colon \Gal_\Q\to\GL_2(\Qp)$ with 
+\[
+	\mtr(\frob_\ell)=\lambda(T_\ell)\,
+	\det(\frob_\ell)=\chi(\ell)\ell^{k-1}
+\]
+Furthermore, when $f$ is ordinary,
+the restriction of  $\rho$ to the decomposition group 
+$D_p$ has an unramified quotient  $\alpha$
+with $\alpha(\frob_p)=\lambda(U_p)$.
+
+Alternatively, we can consider the contragredient representation
+$\rho^\vee$, then 
+\[
+	\mtr(\Fr_\ell)=\lambda(T_\ell)\,
+	\det(\Fr_\ell)=\chi(\ell)\ell^{k-1},
+\]
+the restriction of  $\rho^\vee$ to the decomposition group 
+$D_p$ has $\alpha^{-1}$ as an unramified quotient
+with $\alpha^{-1}(\Fr_p)=\lambda(U_p)$
+when $f$ is ordinary.
+
+
+\subsection{Over $\Q$}
+
+\subsection{Over totally real field}
+
+$\mathcal{EGH}, \mathfrak{Fx}$
+
+\subsection{trivial and Leopoldt zeros}.
 
 \bibliographystyle{amsalpha}
 \bibliography{biblio}
